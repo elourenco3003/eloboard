@@ -1,0 +1,1253 @@
+<title>MarLagos Passeios</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.js"></script>
+<style>
+:root{
+  --bg:#EEF4F5; --surface:#FFFFFF; --surface2:#F5F9FA; --line:#D5E2E5;
+  --ink:#0C2533; --ink2:#46606C; --ink3:#7A919B;
+  --sea:#0B7F86; --sea-ink:#FFFFFF; --sea-soft:#DDF1F1;
+  --navy:#0C2533; --navy-ink:#EAF4F6;
+  --buoy:#E8601C; --buoy-soft:#FDE8DC;
+  --ok:#1C8A4E; --ok-soft:#DCF2E5; --warn:#B7791F; --warn-soft:#FBF0D9;
+  --info:#2C6DB5; --info-soft:#E0ECF8; --mute:#6B7C85; --mute-soft:#E9EEF0;
+  --danger:#C23B2E; --deck:#E9DCC4; --deck-line:#D6C3A2; --hull:#0C2533;
+  --display:"Barlow Condensed","Arial Narrow",Arial,sans-serif;
+  --body:"Figtree",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --bg:#071820; --surface:#0E2530; --surface2:#122D3A; --line:#1F4050;
+    --ink:#E4F0F3; --ink2:#A2BAC3; --ink3:#6F8A95;
+    --sea:#27B3B0; --sea-ink:#04181D; --sea-soft:#0F3A3E;
+    --navy:#0A1D26; --navy-ink:#E4F0F3;
+    --buoy:#F07A3A; --buoy-soft:#3A2216;
+    --ok:#4CC282; --ok-soft:#113626; --warn:#E3AE4F; --warn-soft:#3A2E14;
+    --info:#6FA8E8; --info-soft:#15304D; --mute:#8FA2AB; --mute-soft:#1C3440; --danger:#F07466; --deck:#2E2A22; --deck-line:#453D30; --hull:#5FA9B8;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#071820; --surface:#0E2530; --surface2:#122D3A; --line:#1F4050;
+  --ink:#E4F0F3; --ink2:#A2BAC3; --ink3:#6F8A95;
+  --sea:#27B3B0; --sea-ink:#04181D; --sea-soft:#0F3A3E;
+  --navy:#0A1D26; --navy-ink:#E4F0F3;
+  --buoy:#F07A3A; --buoy-soft:#3A2216;
+  --ok:#4CC282; --ok-soft:#113626; --warn:#E3AE4F; --warn-soft:#3A2E14;
+  --info:#6FA8E8; --info-soft:#15304D; --mute:#8FA2AB; --mute-soft:#1C3440; --danger:#F07466; --deck:#2E2A22; --deck-line:#453D30; --hull:#5FA9B8;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.45;margin:0}
+button,input,select{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:2px solid var(--buoy);outline-offset:2px}
+.shell{max-width:560px;margin:0 auto;min-height:100%;display:flex;flex-direction:column}
+.top{background:var(--navy);color:var(--navy-ink);padding:14px 16px 12px;display:flex;align-items:flex-end;justify-content:space-between;gap:12px}
+.brand{font-family:var(--display);font-weight:700;font-size:26px;letter-spacing:.02em;line-height:1;display:flex;align-items:center;gap:8px}
+.brand svg{width:26px;height:26px}
+.top small{display:block;font-family:var(--body);font-size:12px;opacity:.75;letter-spacing:.04em;margin-top:4px;font-weight:500}
+.top .dt{font-size:12px;text-align:right;opacity:.85}
+main{flex:1;padding:16px 16px 96px;display:flex;flex-direction:column;gap:14px}
+h1{font-family:var(--display);font-weight:700;font-size:28px;line-height:1.05;margin:0;text-wrap:balance;letter-spacing:.01em}
+h2{font-family:var(--display);font-weight:600;font-size:19px;margin:0;letter-spacing:.03em;text-transform:uppercase;color:var(--ink2)}
+.sub{color:var(--ink2);font-size:13.5px;margin:2px 0 0}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px;display:flex;flex-direction:column;gap:12px}
+.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.between{justify-content:space-between}
+.grow{flex:1;min-width:0}
+label.f{display:flex;flex-direction:column;gap:5px;font-size:12px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--ink2)}
+input[type=text],input[type=tel],input[type=number],input[type=url],input[type=date],select{width:100%;background:var(--surface2);border:1px solid var(--line);border-radius:8px;padding:11px 12px;font-size:16px;text-transform:none;letter-spacing:0;font-weight:500}
+input:focus,select:focus{border-color:var(--sea);outline:none}
+.btn{border:0;border-radius:10px;padding:13px 16px;font-weight:700;font-size:15px;display:inline-flex;align-items:center;justify-content:center;gap:8px;text-decoration:none}
+.btn.pri{background:var(--sea);color:var(--sea-ink)}
+.btn.hot{background:var(--buoy);color:#fff}
+.btn.ghost{background:transparent;border:1px solid var(--line);color:var(--ink)}
+.btn.sm{padding:8px 11px;font-size:13px;border-radius:8px}
+.btn.block{width:100%}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.btn.link{background:none;border:0;padding:4px 0;color:var(--sea);font-weight:600}
+.chips{display:flex;gap:8px;flex-wrap:wrap}
+.chip{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:7px 13px;font-size:13.5px;font-weight:600}
+.chip[aria-pressed=true]{background:var(--navy);color:var(--navy-ink);border-color:var(--navy)}
+.slots{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.slot{border:1.5px solid var(--line);background:var(--surface);border-radius:12px;padding:12px;text-align:left;display:flex;flex-direction:column;gap:6px}
+.slot .h{font-family:var(--display);font-size:30px;font-weight:700;line-height:1}
+.slot .r{font-size:12px;color:var(--ink2);font-weight:600;min-height:1.2em}
+.slot[aria-pressed=true]{border-color:var(--sea);box-shadow:0 0 0 3px var(--sea-soft)}
+.slot:disabled{opacity:.55;cursor:not-allowed}
+.gauge{height:6px;border-radius:3px;background:var(--mute-soft);overflow:hidden}
+.gauge i{display:block;height:100%;background:var(--sea)}
+.gauge.full i{background:var(--danger)}
+.gauge.hi i{background:var(--warn)}
+.vagas{font-size:12.5px;font-weight:700}
+.vagas.z{color:var(--danger)}
+.stepper{display:flex;align-items:center;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.stepper button{width:46px;height:46px;border:0;background:var(--surface2);font-size:22px;font-weight:700}
+.stepper output{width:54px;text-align:center;font-family:var(--display);font-size:26px;font-weight:700}
+.total{display:flex;justify-content:space-between;align-items:baseline;border-top:1px dashed var(--line);padding-top:10px}
+.total b{font-family:var(--display);font-size:30px}
+.k{font-size:11.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--ink3);font-weight:700}
+.m{display:inline-flex;justify-content:space-between;gap:.5em;min-width:7.2em;font-variant-numeric:tabular-nums;white-space:nowrap}
+.m .c{color:var(--ink3);font-weight:500}
+.code{font-family:var(--mono);font-weight:700;letter-spacing:.04em}
+.pill{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:3px 8px;border-radius:999px;white-space:nowrap}
+.p-aguardando{background:var(--warn-soft);color:var(--warn)}
+.p-pagamento_informado{background:var(--info-soft);color:var(--info)}
+.p-pago{background:var(--ok-soft);color:var(--ok)}
+.p-cancelada,.p-expirada{background:var(--mute-soft);color:var(--mute)}
+.p-emb{background:var(--ok-soft);color:var(--ok)}
+.p-nao{background:var(--buoy-soft);color:var(--buoy)}
+.list{display:flex;flex-direction:column}
+.item{display:grid;grid-template-columns:1fr auto;gap:4px 10px;padding:11px 0;border-bottom:1px solid var(--line)}
+.item:last-child{border-bottom:0}
+.item .t{font-weight:700}
+.item .s{font-size:12.5px;color:var(--ink2)}
+.item .a{grid-column:1/-1;display:flex;gap:8px;flex-wrap:wrap}
+.pager{display:flex;justify-content:center;align-items:center;gap:14px;font-size:13px;color:var(--ink2);font-variant-numeric:tabular-nums}
+.pager button{width:38px;height:34px;border-radius:8px;border:1px solid var(--line);background:var(--surface);font-size:18px;font-weight:700}
+.pager button:disabled{opacity:.35}
+.tw{overflow-x:auto;margin:0 -2px}
+table{width:100%;border-collapse:collapse;font-size:13.5px}
+th{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink3);text-align:left;padding:8px 6px;border-bottom:2px solid var(--line);white-space:nowrap}
+td{padding:9px 6px;border-bottom:1px solid var(--line);vertical-align:middle}
+td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.stat{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px;display:flex;flex-direction:column;gap:4px}
+.stat .v{font-family:var(--display);font-size:24px;font-weight:700;font-variant-numeric:tabular-nums}
+.stat .v .m{min-width:0;gap:.3em}
+.note{font-size:12.5px;color:var(--ink2);background:var(--surface2);border:1px dashed var(--line);border-radius:10px;padding:10px 12px}
+.nav{position:fixed;left:0;right:0;bottom:0;background:var(--surface);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom,0px);z-index:5}
+.nav div{max-width:560px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr)}
+.nav button{border:0;background:none;padding:9px 4px 10px;display:flex;flex-direction:column;align-items:center;gap:3px;font-size:11.5px;font-weight:700;color:var(--ink3);letter-spacing:.03em}
+.nav button svg{width:22px;height:22px}
+.nav button[aria-current=page]{color:var(--sea)}
+.qr{background:#fff;padding:10px;border-radius:10px;display:inline-block;line-height:0}
+.qr img,.qr canvas{display:block}
+.center{text-align:center;align-items:center}
+.ticket{background:var(--navy);color:var(--navy-ink);border-radius:14px;padding:18px;display:flex;flex-direction:column;gap:12px;position:relative}
+.ticket .k{color:var(--navy-ink);opacity:.6}
+.ticket h1{color:var(--navy-ink)}
+.ticket .perf{border-top:2px dashed rgba(255,255,255,.25);margin:4px -18px}
+.pixbox{font-family:var(--mono);font-size:11px;word-break:break-all;background:var(--surface2);border:1px solid var(--line);border-radius:8px;padding:9px;max-height:4.8em;overflow:hidden}
+.timer{display:inline-flex;align-items:center;gap:6px;background:var(--buoy-soft);color:var(--buoy);font-weight:700;padding:6px 10px;border-radius:8px;font-variant-numeric:tabular-nums;font-size:13.5px}
+.pax{display:grid;grid-template-columns:1fr;gap:8px;padding:10px;border:1px solid var(--line);border-radius:10px;background:var(--surface2)}
+.pax .k{margin-bottom:-2px}
+.chk{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--line)}
+.chk:last-child{border-bottom:0}
+.chk input{width:22px;height:22px;accent-color:var(--ok)}
+.ok-banner{background:var(--ok-soft);color:var(--ok);border-radius:12px;padding:14px;font-weight:700;display:flex;gap:10px;align-items:center}
+.err-banner{background:var(--buoy-soft);color:var(--buoy);border-radius:12px;padding:12px 14px;font-weight:600}
+.badge{background:linear-gradient(160deg,var(--navy),#12404F);color:var(--navy-ink);border-radius:18px;padding:22px 18px;display:flex;flex-direction:column;align-items:center;gap:10px;text-align:center}
+.avatar{width:84px;height:84px;border-radius:50%;background:var(--buoy);color:#fff;font-family:var(--display);font-size:38px;font-weight:700;display:grid;place-items:center;border:3px solid rgba(255,255,255,.8)}
+.tabs{display:flex;gap:6px;overflow-x:auto;padding-bottom:2px}
+.tabs button{flex:none;border:0;background:none;padding:8px 10px;border-bottom:2px solid transparent;font-weight:700;color:var(--ink3);font-size:14px}
+.tabs button[aria-selected=true]{color:var(--ink);border-color:var(--buoy)}
+.man-head{border:2px solid var(--ink);border-radius:8px;padding:12px;display:flex;flex-direction:column;gap:4px;font-size:13px}
+.man-head .ti{font-family:var(--display);font-size:20px;font-weight:700;letter-spacing:.04em;text-transform:uppercase}
+.toast{position:fixed;left:50%;bottom:86px;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:10px;font-weight:600;font-size:14px;z-index:20;max-width:calc(100% - 32px)}
+.demo-bar{background:var(--buoy-soft);color:var(--buoy);font-size:12.5px;font-weight:600;padding:8px 16px;display:flex;justify-content:space-between;align-items:center;gap:8px}
+.demo-bar button{background:none;border:0;color:inherit;font-weight:800;text-decoration:underline}
+.ex{font-size:10.5px;font-weight:700;letter-spacing:.06em;color:var(--ink3);border:1px solid var(--line);border-radius:4px;padding:1px 5px;text-transform:uppercase}
+.refresh{display:flex;flex-direction:column;align-items:flex-end;gap:4px}
+.refresh button{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.25);color:inherit;border-radius:8px;padding:5px 10px;font-size:12.5px;font-weight:700;display:inline-flex;gap:6px;align-items:center}
+.refresh span{font-size:10.5px;opacity:.65}
+.boat{display:flex;justify-content:center}
+.hull{width:min(100%,270px);background:var(--deck);border:3px solid var(--hull);border-radius:50% 50% 26px 26px / 120px 120px 26px 26px;padding:70px 16px 12px;display:flex;flex-direction:column;gap:6px;background-image:repeating-linear-gradient(90deg,transparent 0 22px,var(--deck-line) 22px 23px)}
+.bow,.stern{font-size:10px;font-weight:800;letter-spacing:.14em;color:var(--hull);text-align:center}
+.bow{margin-top:-40px;margin-bottom:14px}
+.stern{margin-top:6px;border-top:2px solid var(--hull);padding-top:6px}
+.srow{display:grid;grid-template-columns:1fr 1fr 16px 1fr 1fr;gap:6px}
+.seat{aspect-ratio:1;border-radius:9px 9px 4px 4px;font-size:11.5px;font-weight:800;display:grid;place-items:center;border:1.5px solid transparent;padding:0;font-variant-numeric:tabular-nums}
+.s-free{background:var(--surface);border-color:var(--sea);color:var(--sea)}
+.s-sel{background:var(--buoy);color:#fff;border-color:var(--buoy)}
+.s-res{background:repeating-linear-gradient(45deg,var(--warn-soft) 0 5px,var(--surface) 5px 10px);border-color:var(--warn);color:var(--warn)}
+.s-pago{background:var(--ink3);color:var(--surface);opacity:.75}
+.s-emb{background:var(--ok);color:#fff}
+.s-void{visibility:hidden}
+.legend{display:flex;flex-wrap:wrap;gap:6px 12px;justify-content:center;font-size:12px;color:var(--ink2)}
+.legend span{display:inline-flex;align-items:center;gap:5px}
+.legend i{width:14px;height:14px;border-radius:4px;display:inline-block;border:1.5px solid transparent}
+.bigqr{display:flex;flex-direction:column;align-items:center;gap:8px;padding:6px 0}
+.or{display:flex;align-items:center;gap:10px;color:var(--ink3);font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+.or::before,.or::after{content:"";flex:1;border-top:1px solid var(--line)}
+details.more summary{cursor:pointer;font-weight:600;color:var(--sea);font-size:13.5px}
+.rules{display:grid;grid-template-columns:auto 1fr;gap:6px 12px;font-size:13px}
+.rules b{font-family:var(--display);font-size:18px;text-align:right;font-variant-numeric:tabular-nums}
+tfoot td{font-weight:800;border-top:2px solid var(--line);border-bottom:0}
+.stat.hi{background:var(--sea-soft);border-color:var(--sea)}
+.lay2,.lay-venda{display:flex;flex-direction:column;gap:14px}
+.lay2>*,.lay-venda>*{min-width:0}
+.cam{position:relative;background:#000;border-radius:12px;overflow:hidden;aspect-ratio:4/3;display:grid;place-items:center;color:#9FB3BB;font-size:13px;text-align:center}
+.cam video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.cam .frame{position:absolute;inset:18% 22%;border:3px solid rgba(255,255,255,.85);border-radius:14px;box-shadow:0 0 0 999px rgba(0,0,0,.35)}
+.cam .fb{position:absolute;left:10px;right:10px;bottom:10px;padding:10px;border-radius:10px;font-weight:800;font-size:15px}
+.cam .fb.ok{background:var(--ok);color:#fff}.cam .fb.err{background:var(--danger);color:#fff}
+.sw{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:var(--ink2)}
+.sw input{width:20px;height:20px;accent-color:var(--sea)}
+/* ---- tablet ---- */
+@media (min-width:760px){
+  .shell{max-width:1100px}
+  .top{padding-inline:24px}
+  main{padding:20px 24px 100px}
+  h1{font-size:32px}
+  .nav div{max-width:640px}
+  .stats{grid-template-columns:repeat(4,1fr)}
+  .stats.six{grid-template-columns:repeat(3,1fr)}
+  .slots{grid-template-columns:repeat(3,1fr)}
+  .lay2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;align-items:start}
+  .lay-venda{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);grid-template-areas:"hor seat" "pass seat" "list list";gap:16px;align-items:start}
+  .lay-venda.solo{grid-template-areas:"hor hor" "list list"}
+  .a-hor{grid-area:hor}.a-seat{grid-area:seat}.a-pass{grid-area:pass}.a-list{grid-area:list}
+  .hull{width:min(100%,330px)}
+  .panel{padding:18px}
+}
+@media (min-width:1024px){
+  .stats.six{grid-template-columns:repeat(6,1fr)}
+  .stat .v{font-size:21px}
+}
+@media (max-width:380px){.slots{grid-template-columns:1fr 1fr}.slot .h{font-size:26px}}
+@media (prefers-reduced-motion: reduce){*{transition:none!important;animation:none!important}}
+@media print{
+  .top,.nav,.no-print,.demo-bar{display:none!important}
+  body{background:#fff;color:#000}
+  main{padding:0}
+  .panel{border:0;padding:0}
+}
+</style>
+
+<div class="shell">
+  <div id="demobar"></div>
+  <header class="top">
+    <div>
+      <div class="brand"><svg viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M4 21c3 0 3-2 6-2s3 2 6 2 3-2 6-2 3 2 6 2" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/><path d="M7 17h18l-3 -4H10z" fill="#E8601C"/><path d="M16 13V4l6 7" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>MarLagos</div>
+      <small id="ctx">Passeios de escuna · Arraial do Cabo</small>
+    </div>
+    <div class="refresh no-print"><button data-act="atualizar" aria-label="Atualizar dados"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-3-6.7L21 8"/><path d="M21 3v5h-5"/></svg>Atualizar</button><span id="upd"></span></div>
+  </header>
+  <main id="app"></main>
+</div>
+<nav class="nav no-print" id="nav"><div>
+  <button data-go="vender"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h18v10H3z"/><path d="M8 7v10M16 12h1"/></svg>Vender</button>
+  <button data-go="cais"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h6v6H4zM14 4h6v6h-6zM4 14h6v6H4zM14 14h2v2h-2zM18 18h2v2h-2zM14 18h2M18 14h2"/></svg>Cais</button>
+  <button data-go="manifesto"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h9l4 4v14H6z"/><path d="M9 11h7M9 15h7M9 7h3"/></svg>Manifesto</button>
+  <button data-go="gestao"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>Gestão</button>
+</div></nav>
+
+<script>
+/* =========================================================
+   CAMADA DE DADOS
+   Hoje grava no navegador (localStorage). Para ir ao banco,
+   basta reescrever as funções do objeto `api` mantendo as
+   mesmas assinaturas (todas são async).
+   ========================================================= */
+const KEY = 'marlagos.v2';
+const hoje = () => new Date().toLocaleDateString('sv-SE');
+const uid = () => Math.random().toString(36).slice(2,10);
+const MIN = 60e3;
+let mem = null;
+
+/* ---- Regras de prazo (padrões; cada barco pode ter as suas) ----
+   tempoPag  : minutos que o turista tem para pagar depois que o link/QR é gerado
+   tempoConf : minutos extras depois do "Já paguei" para o barco conferir o Pix
+   corteMin  : vendas do horário fecham X minutos antes da saída
+   Nenhum prazo passa do horário de corte. Reserva vencida libera os lugares.
+   Pix que chega depois do prazo só é confirmado se ainda houver lugar.          */
+const REGRAS_PADRAO = {tempoPag:10, tempoConf:20, corteMin:15};
+
+const saidaTs = s => new Date(`${s.data}T${s.hora}:00`).getTime();
+const corteTs = (s,b) => saidaTs(s) - (b.corteMin??REGRAS_PADRAO.corteMin)*MIN;
+/* ---- Comissão: regra do vendedor (se tiver) ou a do barco. % do valor vendido ou R$ fixo por passagem ---- */
+function regraComissao(b,p){ return (p&&p.comissaoTipo)?{tipo:p.comissaoTipo,valor:+p.comissaoValor||0,origem:'vendedor'}:{tipo:b.comissaoTipo||'pct',valor:+(b.comissaoValor??b.comissaoPct??0),origem:'barco'}; }
+function calcComissao(rg,valorUnit,q){ return Math.round((rg.tipo==='fixo'?rg.valor*q:valorUnit*q*rg.valor/100)*100)/100; }
+const regraTxt = rg => rg.tipo==='fixo'?`R$ ${Number(rg.valor).toLocaleString('pt-BR',{minimumFractionDigits:2})} por passagem`:`${String(rg.valor).replace('.',',')}% do valor`;
+const ativa = (r,now=Date.now()) => r.status==='pago' || ((r.status==='aguardando'||r.status==='pagamento_informado') && r.expiraEm>now);
+
+function horariosDemo(){
+  // horários do barco de exemplo a partir de agora, para a demonstração sempre ter saídas abertas
+  const d=new Date(); let m=d.getHours()*60+d.getMinutes()+50; m=Math.ceil(m/30)*30;
+  const out=[]; for(const add of [0,120,240]){ const t=Math.min(m+add,23*60+30); const h=`${String(Math.floor(t/60)).padStart(2,'0')}:${String(t%60).padStart(2,'0')}`; if(!out.some(x=>x[0]===h)) out.push([h,'']); }
+  return out;
+}
+function seed(){
+  const d = hoje(); const hs = horariosDemo();
+  const barcos = [
+    {id:'b1',nome:'Pérola do Mar',inscricao:'381-094281-1',mestre:'Cap. Silva',cais:'Cais da Praia dos Anjos',capacidade:40,preco:150,precoMin:120,comissaoTipo:'pct',comissaoValor:15,
+     pixChave:'passeios@peroladomar.com.br',pixNome:'PEROLA DO MAR PASSEIOS',pixCidade:'ARRAIAL DO CABO',...REGRAS_PADRAO,horarios:hs,ativo:true},
+    {id:'b2',nome:'Estrela Guia',inscricao:'381-102377-4',mestre:'Mestre Jair',cais:'Cais da Praia dos Anjos',capacidade:24,preco:130,precoMin:130,comissaoTipo:'fixo',comissaoValor:20,
+     pixChave:'22999990000',pixNome:'ESTRELA GUIA TURISMO',pixCidade:'ARRAIAL DO CABO',...REGRAS_PADRAO,horarios:hs.slice(0,2),ativo:true}
+  ];
+  const promotores = [
+    {id:'p1',nome:'Lucas Silva',codigo:'402',whatsapp:'22998765432',pixChave:'22998765432',comissaoTipo:'',comissaoValor:0,barcoIds:['b1','b2'],ativo:true},
+    {id:'p2',nome:'Marina Costa',codigo:'415',whatsapp:'22997654321',pixChave:'marina.costa@email.com',comissaoTipo:'pct',comissaoValor:18,barcoIds:['b1'],ativo:true}
+  ];
+  const db = {barcos,promotores,saidas:[],reservas:[],config:{urlPublica:''}};
+  gerarSaidas(db,d);
+  const nomes=['Roberto Alves','Juliana Paes','Carla Menezes','Diego Ramos','Fernanda Lima','Paulo Henrique','Aline Souza','Marcos Vieira','Tatiane Rocha','Bruno Castro','Renata Gomes','Igor Nunes','Luana Prado','Sérgio Motta','Patrícia Reis','Thiago Brito'];
+  let n=0;
+  const pax = q => Array.from({length:q},()=>{const nm=nomes[n++%nomes.length];const x=String(100000000+((n*7919)%899999999)).padStart(9,'0');return {nome:nm,doc:`${x.slice(0,3)}.${x.slice(3,6)}.${x.slice(6,9)}-${String(n%97).padStart(2,'0')}`,embarcado:false}});
+  const sd = i => db.saidas.find(x=>x.barcoId==='b1'&&x.hora===hs[Math.min(i,hs.length-1)][0]);
+  const add = (i,q,pid,st,extra={}) => {
+    const sa=sd(i), b=barcos[0], vu=q>=6?b.precoMin+10:b.preco, valor=q*vu, rg=regraComissao(b,promotores.find(p=>p.id===pid));
+    const r={codigo:novoCodigo(db),saidaId:sa.id,promotorId:pid,qtd:q,valorUnit:vu,precoTabela:b.preco,valor,comissao:calcComissao(rg,vu,q),regra:rg,
+      whatsapp:'2299'+String(1000000+n*3517).slice(0,7),status:st,criadoEm:Date.now()-3600e3*Math.random(),expiraEm:null,
+      assentos:[],passageiros:st==='aguardando'?[]:pax(q),exemplo:true,...extra};
+    if(st!=='expirada') r.assentos=autoAssentos(db,sa.id,q,r); else r.assentos=[39,40].slice(0,q);
+    db.reservas.push(r);
+  };
+  [4,6,8,4,6,4].forEach((q,i)=>add(0,q,i%2?'p2':'p1','pago'));
+  add(0,2,'p1','pagamento_informado',{expiraEm:Date.now()+14*MIN});
+  add(0,2,'p2','aguardando',{expiraEm:Date.now()+6*MIN});
+  [2,4,5,3,6].forEach((q,i)=>add(1,q,i%3?'p1':'p2','pago'));
+  add(1,2,'p1','expirada',{expiraEm:Date.now()-5*MIN});
+  [4,2].forEach((q,i)=>add(2,q,i?'p2':'p1','pago'));
+  return db;
+}
+function gerarSaidas(db,data){
+  db.barcos.filter(b=>b.ativo).forEach(b=>b.horarios.forEach(([hora,rotulo])=>{
+    if(!db.saidas.some(s=>s.barcoId===b.id&&s.data===data&&s.hora===hora))
+      db.saidas.push({id:uid(),barcoId:b.id,data,hora,rotulo,capacidade:b.capacidade,status:'aberta'});
+  }));
+}
+function novoCodigo(db){ let c; do{c='AC-'+(1000+Math.floor(Math.random()*9000))}while(db.reservas.some(r=>r.codigo===c)); return c; }
+function mapaAssentos(db,saidaId,ignorar){
+  const m={};
+  db.reservas.filter(r=>r.saidaId===saidaId&&r!==ignorar&&ativa(r)).forEach(r=>(r.assentos||[]).forEach((num,i)=>{
+    const p=r.passageiros[i];
+    m[num]={st:r.status==='pago'?(p&&p.embarcado?'emb':'pago'):'res',codigo:r.codigo};
+  }));
+  return m;
+}
+function autoAssentos(db,saidaId,q,ignorar){
+  const s=db.saidas.find(x=>x.id===saidaId), m=mapaAssentos(db,saidaId,ignorar), out=[];
+  for(let k=1;k<=s.capacidade&&out.length<q;k++) if(!m[k]) out.push(k);
+  return out;
+}
+function load(){
+  if(mem) return mem;
+  try{ mem = JSON.parse(localStorage.getItem(KEY)); }catch(e){ mem=null; }
+  if(!mem) mem = seed();
+  mem.barcos.forEach(b=>{ if(!b.comissaoTipo){ b.comissaoTipo='pct'; b.comissaoValor=b.comissaoPct??15; } if(b.precoMin==null) b.precoMin=b.preco; });
+  mem.reservas.forEach(r=>{ if(r.precoTabela==null) r.precoTabela=r.valorUnit; });
+  gerarSaidas(mem,hoje());
+  const now=Date.now();
+  mem.reservas.forEach(r=>{ if((r.status==='aguardando'||r.status==='pagamento_informado')&&r.expiraEm&&r.expiraEm<=now){ r.status='expirada'; r.expirouEm=r.expiraEm; } });
+  return mem;
+}
+function persist(){ try{ localStorage.setItem(KEY,JSON.stringify(mem)); }catch(e){} }
+function ocupacao(db,saidaId){ return db.reservas.filter(r=>r.saidaId===saidaId&&ativa(r)).reduce((a,r)=>a+r.qtd,0); }
+const clone = o => JSON.parse(JSON.stringify(o));
+const achar = (db,codigo) => db.reservas.find(x=>x.codigo===String(codigo).toUpperCase().trim());
+
+const api = {
+  async barcos(){ return clone(load().barcos); },
+  async promotores(){ return clone(load().promotores); },
+  async config(){ return clone(load().config); },
+  async saidas(data){
+    const db=load(), now=Date.now();
+    return db.saidas.filter(s=>s.data===data).map(s=>{
+      const b=db.barcos.find(x=>x.id===s.barcoId);
+      const fecha=corteTs(s,b);
+      return {...clone(s),ocupadas:ocupacao(db,s.id),barco:clone(b),fechaEm:fecha,vendendo:s.status==='aberta'&&now<fecha,mapa:mapaAssentos(db,s.id)};
+    }).sort((a,b)=>a.hora.localeCompare(b.hora));
+  },
+  async criarReserva({saidaId,promotorId,qtd,assentos,valorUnit}){
+    const db=load(); load();
+    const s=db.saidas.find(x=>x.id===saidaId), b=db.barcos.find(x=>x.id===s.barcoId);
+    const fecha=corteTs(s,b), now=Date.now();
+    if(s.status!=='aberta') throw new Error('Esta saída foi encerrada pelo barco.');
+    if(now>=fecha) throw new Error(`As vendas deste horário fecharam ${b.corteMin} min antes da saída.`);
+    const m=mapaAssentos(db,saidaId);
+    let seats=(assentos&&assentos.length)?assentos:autoAssentos(db,saidaId,qtd);
+    if(seats.some(k=>m[k])) throw new Error('Um dos assentos escolhidos acabou de ser ocupado. Escolha de novo.');
+    if(seats.length<qtd) throw new Error(`Só restam ${seats.length} lugares neste horário.`);
+    const vu=Math.round((+valorUnit||b.preco)*100)/100;
+    if(vu<(b.precoMin??b.preco)) throw new Error(`O valor mínimo da passagem neste barco é R$ ${fmt(b.precoMin)}.`);
+    const q=seats.length, valor=q*vu, rg=regraComissao(b,db.promotores.find(p=>p.id===promotorId));
+    const r={codigo:novoCodigo(db),saidaId,promotorId,qtd:q,valorUnit:vu,precoTabela:b.preco,valor,comissao:calcComissao(rg,vu,q),regra:rg,whatsapp:'',
+      status:'aguardando',criadoEm:now,expiraEm:Math.min(now+b.tempoPag*MIN,fecha),assentos:seats,passageiros:[]};
+    db.reservas.push(r); persist(); return clone(r);
+  },
+  async reserva(codigo){
+    const db=load(); const r=achar(db,codigo); if(!r) return null;
+    const s=db.saidas.find(x=>x.id===r.saidaId);
+    return {...clone(r),saida:clone(s),barco:clone(db.barcos.find(b=>b.id===s.barcoId)),promotor:clone(db.promotores.find(p=>p.id===r.promotorId))};
+  },
+  async reservas(filtro={}){
+    const db=load();
+    return clone(db.reservas.filter(r=>{
+      const s=db.saidas.find(x=>x.id===r.saidaId);
+      return (!filtro.data||s.data===filtro.data)&&(!filtro.promotorId||r.promotorId===filtro.promotorId)&&(!filtro.saidaId||r.saidaId===filtro.saidaId);
+    }).map(r=>({...r,saida:db.saidas.find(x=>x.id===r.saidaId)})).sort((a,b)=>b.criadoEm-a.criadoEm));
+  },
+  async salvarPassageiros(codigo,passageiros,whatsapp){
+    const r=achar(load(),codigo);
+    r.passageiros=passageiros.map((p,i)=>({...p,embarcado:r.passageiros[i]?.embarcado||false}));
+    if(whatsapp) r.whatsapp=whatsapp; persist();
+  },
+  async informarPagamento(codigo,passageiros,whatsapp){
+    const db=load(); const r=achar(db,codigo);
+    if(r.status!=='aguardando') throw new Error(r.status==='expirada'?'O prazo para pagar terminou e os lugares foram liberados. Se você já pagou, mostre o comprovante ao promotor.':'Esta reserva não está mais ativa.');
+    const s=db.saidas.find(x=>x.id===r.saidaId), b=db.barcos.find(x=>x.id===s.barcoId);
+    r.passageiros=passageiros.map(p=>({...p,embarcado:false})); if(whatsapp) r.whatsapp=whatsapp;
+    r.status='pagamento_informado'; r.informadoEm=Date.now();
+    r.expiraEm=Math.min(Math.max(r.expiraEm,Date.now()+b.tempoConf*MIN),saidaTs(s));
+    persist();
+  },
+  async confirmarPagamento(codigo){
+    const db=load(); const r=achar(db,codigo); let msg='';
+    if(r.status==='expirada'||r.status==='cancelada'){
+      const m=mapaAssentos(db,r.saidaId,r);
+      if(r.assentos.some(k=>m[k])){
+        const novos=autoAssentos(db,r.saidaId,r.qtd,r);
+        if(novos.length<r.qtd) throw new Error(`Pix fora do prazo e o barco não tem mais ${r.qtd} lugares livres neste horário. Devolva o Pix ou remarque para outra saída.`);
+        r.assentos=novos; msg=` · novos assentos ${novos.join(', ')}`;
+      }
+      r.confirmadoForaDoPrazo=true;
+    }
+    r.status='pago'; r.expiraEm=null; r.pagoEm=Date.now(); persist();
+    return msg;
+  },
+  async cancelar(codigo){ const r=achar(load(),codigo); r.status='cancelada'; r.expiraEm=null; persist(); },
+  async embarcar(codigo,idx,valor){
+    const r=achar(load(),codigo);
+    if(idx==='all') r.passageiros.forEach(p=>p.embarcado=true); else r.passageiros[idx].embarcado=valor;
+    persist();
+  },
+  async salvarBarco(b){
+    const db=load(); if(!b.id){b.id=uid();db.barcos.push(b);} else Object.assign(db.barcos.find(x=>x.id===b.id),b);
+    gerarSaidas(db,hoje()); persist();
+  },
+  async salvarPromotor(p){ const db=load(); if(!p.id){p.id=uid();db.promotores.push(p);} else Object.assign(db.promotores.find(x=>x.id===p.id),p); persist(); },
+  async salvarSaida(s){ const db=load(); if(!s.id){s.id=uid();s.status='aberta';db.saidas.push(s);} else Object.assign(db.saidas.find(x=>x.id===s.id),s); persist(); },
+  async salvarConfig(c){ Object.assign(load().config,c); persist(); },
+  async resetar(){ mem=seed(); persist(); }
+};
+
+/* =========================================================
+   PIX — BR Code estático (copia-e-cola padrão Banco Central)
+   ========================================================= */
+function crc16(s){let c=0xFFFF;for(let i=0;i<s.length;i++){c^=s.charCodeAt(i)<<8;for(let j=0;j<8;j++)c=(c&0x8000)?((c<<1)^0x1021)&0xFFFF:(c<<1)&0xFFFF;}return c.toString(16).toUpperCase().padStart(4,'0');}
+const tlv=(id,v)=>id+String(v.length).padStart(2,'0')+v;
+const semAcento=s=>s.normalize('NFD').replace(/[̀-ͯ]/g,'').toUpperCase();
+function pixPayload({chave,nome,cidade,valor,txid}){
+  const p=tlv('00','01')+tlv('26',tlv('00','br.gov.bcb.pix')+tlv('01',chave))+tlv('52','0000')+tlv('53','986')+
+    tlv('54',valor.toFixed(2))+tlv('58','BR')+tlv('59',semAcento(nome).slice(0,25))+tlv('60',semAcento(cidade).slice(0,15))+
+    tlv('62',tlv('05',txid.replace(/[^A-Za-z0-9]/g,'').slice(0,25)))+'6304';
+  return p+crc16(p);
+}
+
+/* =========================================================
+   UTILITÁRIOS DE TELA
+   ========================================================= */
+const $ = s => document.querySelector(s);
+const esc = s => String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const fmt = v => Number(v||0).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});
+const money = v => `<span class="m"><span class="c">R$</span><span>${fmt(v)}</span></span>`;
+const dataBR = d => d.split('-').reverse().join('/');
+const hora = ts => new Date(ts).toTimeString().slice(0,5);
+const fone = s => { const d=String(s||'').replace(/\D/g,'').slice(0,11); if(d.length<3) return d; if(d.length<8) return `(${d.slice(0,2)}) ${d.slice(2)}`; return `(${d.slice(0,2)}) ${d.slice(2,d.length-4)}-${d.slice(-4)}`; };
+const docFmt = s => { const d=s.replace(/\D/g,''); return d.length===11&&/^[\d.\-\s]+$/.test(s)?`${d.slice(0,3)}.${d.slice(3,6)}.${d.slice(6,9)}-${d.slice(9)}`:s.trim(); };
+const iniciais = n => n.split(' ').filter(Boolean).map(x=>x[0]).slice(0,2).join('').toUpperCase();
+const STATUS = {aguardando:'Aguardando Pix',pagamento_informado:'Pix informado',pago:'Pago',cancelada:'Cancelada',expirada:'Prazo vencido'};
+const pill = st => `<span class="pill p-${st}">${STATUS[st]}</span>`;
+const countdown = ts => `<span data-countdown="${ts}">--:--</span>`;
+const pages = {};
+function paginate(key,arr,size){const n=Math.max(1,Math.ceil(arr.length/size));const p=Math.min(pages[key]||0,n-1);pages[key]=p;return {items:arr.slice(p*size,p*size+size),p,n,key,off:p*size};}
+const pager = pg => pg.n<=1?'':`<div class="pager"><button data-act="pg" data-k="${pg.key}" data-d="-1" ${pg.p===0?'disabled':''} aria-label="Página anterior">‹</button><span>${pg.p+1} / ${pg.n}</span><button data-act="pg" data-k="${pg.key}" data-d="1" ${pg.p>=pg.n-1?'disabled':''} aria-label="Próxima página">›</button></div>`;
+function toast(msg){const t=document.createElement('div');t.className='toast';t.textContent=msg;document.body.appendChild(t);setTimeout(()=>t.remove(),Math.max(2400,msg.length*55));}
+async function copiar(txt,okMsg){try{await navigator.clipboard.writeText(txt);toast(okMsg||'Copiado');}catch(e){toast('Não deu para copiar. Selecione o texto e copie.');}}
+function linkPublico(cfg,codigo){const base=(cfg.urlPublica||'').trim()||(location.origin+location.pathname);return base.replace(/#.*$/,'')+'#r-'+codigo;}
+function drawQRs(){
+  document.querySelectorAll('[data-qr]').forEach(el=>{
+    el.innerHTML=''; const size=+el.dataset.size||180;
+    if(window.QRCode) new QRCode(el,{text:el.dataset.qr,width:size,height:size,correctLevel:QRCode.CorrectLevel.M});
+    else el.textContent='QR indisponível';
+  });
+}
+function slotTxt(s){
+  const l=s.capacidade-s.ocupadas;
+  if(s.status!=='aberta') return 'Encerrada';
+  if(!s.vendendo) return Date.now()>=saidaTs(s)?'Já saiu':'Vendas fechadas';
+  return l<=0?'Esgotado':l===1?'1 lugar':`${l} lugares`;
+}
+
+/* ---------- desenho do barco com assentos ---------- */
+function seatMap(cap,mapa,sel=[],interativo=false){
+  const rows=Math.ceil(cap/4); let h='';
+  for(let r=0;r<rows;r++){
+    h+='<div class="srow">';
+    for(let c=0;c<4;c++){
+      if(c===2) h+='<span></span>';
+      const n=r*4+c+1;
+      if(n>cap){ h+='<span class="seat s-void"></span>'; continue; }
+      const st=sel.includes(n)?'sel':(mapa[n]?.st||'free');
+      const livre=st==='free'||st==='sel';
+      h+= interativo&&livre
+        ? `<button class="seat s-${st}" data-act="seat" data-n="${n}" aria-pressed="${st==='sel'}" aria-label="Assento ${n}">${n}</button>`
+        : `<span class="seat s-${st}" title="Assento ${n}">${n}</span>`;
+    }
+    h+='</div>';
+  }
+  return `<div class="boat"><div class="hull"><div class="bow">▲ PROA</div>${h}<div class="stern">POPA · TIMÃO</div></div></div>
+  <div class="legend">
+    <span><i class="s-free"></i>Livre</span>${interativo?'<span><i class="s-sel"></i>Escolhido</span>':''}
+    <span><i class="s-res"></i>Aguardando Pix</span><span><i class="s-pago"></i>Vendido</span><span><i class="s-emb"></i>Embarcado</span>
+  </div>`;
+}
+
+/* ---------- voucher em imagem (PNG) ---------- */
+async function baixarVoucher(codigo){
+  const r=await api.reserva(codigo);
+  const W=720, H=560+r.qtd*46+120;
+  const cv=document.createElement('canvas'); cv.width=W; cv.height=H; const g=cv.getContext('2d');
+  g.fillStyle='#0C2533'; g.fillRect(0,0,W,H);
+  g.fillStyle='#E8601C'; g.fillRect(0,0,W,10);
+  g.fillStyle='#EAF4F6'; g.textAlign='left';
+  g.font='600 22px Figtree, Arial'; g.globalAlpha=.7; g.fillText('MARLAGOS · VOUCHER DE EMBARQUE',40,60); g.globalAlpha=1;
+  g.font='700 52px "Barlow Condensed", Arial'; g.fillText(r.barco.nome,40,120);
+  g.font='500 26px Figtree, Arial'; g.fillText(`${dataBR(r.saida.data)} · saída ${r.saida.hora} · ${r.barco.cais}`,40,162);
+  g.fillStyle='#fff'; g.fillRect(40,190,300,300);
+  const qc=document.querySelector('.ticket [data-qr] canvas');
+  if(qc) g.drawImage(qc,50,200,280,280);
+  g.fillStyle='#EAF4F6'; g.font='700 56px "JetBrains Mono", monospace'; g.fillText(r.codigo,370,260);
+  g.font='500 24px Figtree, Arial'; g.fillText(`${r.qtd} passageiro${r.qtd>1?'s':''}`,370,305);
+  g.fillText(`Total pago R$ ${fmt(r.valor)}`,370,340);
+  g.fillText('Chegue 20 min antes',370,395); g.fillText('da saída e mostre',370,428); g.fillText('este QR no cais.',370,461);
+  g.strokeStyle='rgba(255,255,255,.3)'; g.setLineDash([10,8]); g.beginPath(); g.moveTo(0,525); g.lineTo(W,525); g.stroke(); g.setLineDash([]);
+  g.font='700 22px Figtree, Arial'; g.globalAlpha=.7; g.fillText('PASSAGEIRO',40,570); g.textAlign='right'; g.fillText('ASSENTO',W-40,570); g.globalAlpha=1;
+  r.passageiros.forEach((p,i)=>{ const y=615+i*46; g.textAlign='left'; g.font='500 26px Figtree, Arial'; g.fillText(`${i+1}. ${p.nome}`,40,y); g.textAlign='right'; g.font='700 28px "JetBrains Mono", monospace'; g.fillText(String(r.assentos[i]??'—'),W-40,y); });
+  g.textAlign='left'; g.font='500 20px Figtree, Arial'; g.globalAlpha=.6; g.fillText(`Inscrição Capitania ${r.barco.inscricao} · Mestre ${r.barco.mestre}`,40,H-40);
+  cv.toBlob(blob=>{
+    try{ const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=`voucher-${r.codigo}.png`; document.body.appendChild(a); a.click(); a.remove(); setTimeout(()=>URL.revokeObjectURL(a.href),4000); toast('Voucher salvo em imagem'); }
+    catch(e){ toast('Não foi possível baixar aqui. Tire um print desta tela.'); }
+  },'image/png');
+}
+
+/* =========================================================
+   ESTADO DA TELA
+   ========================================================= */
+const ui = {
+  view:'vender', promotorId:null, barcoId:null, saidaId:null, qtd:2, assentos:[], zap:'', ultima:null, err:'',
+  caisSaida:null, caisCodigo:'', caisMsg:null, manSaida:null,
+  gTab:'resumo', gData:hoje(), gBarco:'', autoEmb:true, camOn:false, camErro:'', edit:null, turista:null, turErr:'', atualizadoEm:Date.now()
+};
+
+/* ---------------- VENDER (promotor) ---------------- */
+async function vVender(){
+  const [proms,cfg]=[await api.promotores(),await api.config()];
+  const ativos=proms.filter(p=>p.ativo);
+  if(!ui.promotorId||!ativos.some(p=>p.id===ui.promotorId)) ui.promotorId=ativos[0]?.id;
+  const prom=ativos.find(p=>p.id===ui.promotorId);
+  if(!prom) return `<div class="panel"><h1>Nenhum promotor ativo</h1><p class="sub">Cadastre um promotor em Gestão › Promotores.</p></div>`;
+  const minhas=await api.reservas({data:hoje(),promotorId:prom.id});
+  const pagas=minhas.filter(r=>r.status==='pago');
+  const pg=paginate('minhas',minhas,5);
+  const lista=`
+  <section class="panel">
+    <div class="row between"><h2>Minhas vendas hoje</h2><span class="sub">${minhas.length} reservas</span></div>
+    <div class="stats">
+      <div class="stat"><span class="k">Vendido pago (R$)</span><span class="v">${money(pagas.reduce((a,r)=>a+r.valor,0))}</span></div>
+      <div class="stat"><span class="k">Comissão (R$)</span><span class="v">${money(pagas.reduce((a,r)=>a+r.comissao,0))}</span></div>
+    </div>
+    <div class="list">${pg.items.map(r=>{
+      const pend=['aguardando','pagamento_informado'].includes(r.status);
+      return `<div class="item">
+        <div><div class="t"><span class="code">${r.codigo}</span> · ${r.saida.hora}</div>
+          <div class="s">${r.qtd} pessoas · assentos ${r.assentos.join(', ')||'—'} ${r.exemplo?'<span class="ex">exemplo</span>':''}</div>
+          ${pend?`<div class="s">Vence em <b>${countdown(r.expiraEm)}</b></div>`:''}</div>
+        <div style="text-align:right">${money(r.valor)}<div>${pill(r.status)}</div></div>
+        ${pend?`<div class="a">
+          <button class="btn pri sm" data-act="confirmar" data-c="${r.codigo}">Confirmar Pix recebido</button>
+          <button class="btn ghost sm" data-act="mostrarQR" data-c="${r.codigo}">Mostrar QR</button>
+          <button class="btn ghost sm" data-act="cancelar" data-c="${r.codigo}">Cancelar</button></div>`:''}
+        ${r.status==='expirada'&&!r.confirmadoForaDoPrazo?`<div class="a"><button class="btn ghost sm" data-act="confirmar" data-c="${r.codigo}">Pix chegou atrasado? Confirmar se houver lugar</button></div>`:''}
+      </div>`;}).join('')||'<p class="sub">Nenhuma venda ainda hoje.</p>'}</div>
+    ${pager(pg)}
+  </section>`;
+
+  const head=`
+  <section class="row between">
+    <div class="grow"><h1>${ui.ultima?'Pagamento':'Nova venda'}</h1><p class="sub">Promotor <b>${esc(prom.nome)}</b> · #${esc(prom.codigo)}</p></div>
+    <button class="btn ghost sm" data-act="cracha">Crachá</button>
+  </section>`;
+
+  /* --- reserva gerada: QR grande + WhatsApp opcional --- */
+  if(ui.ultima){
+    const r=await api.reserva(ui.ultima);
+    const link=linkPublico(cfg,r.codigo);
+    const msg=`Olá! Sua reserva no passeio de escuna ${r.barco.nome} está separada.\n\n${dataBR(r.saida.data)} às ${r.saida.hora} · ${r.qtd} passagens (assentos ${r.assentos.join(', ')}) · R$ ${fmt(r.valor)}\n\nPague o Pix e cadastre os passageiros até as ${r.expiraEm?hora(r.expiraEm):''}:\n${link}\n\nCódigo ${r.codigo} · Promotor ${r.promotor.nome} #${r.promotor.codigo}`;
+    ui.msg=msg;
+    const pend=['aguardando','pagamento_informado'].includes(r.status);
+    return head+`<div class="lay2">
+    <section class="panel">
+      <div class="row between"><div><div class="k">Reserva</div><div class="code" style="font-size:22px">${r.codigo}</div></div>${pill(r.status)}</div>
+      <p class="sub" style="margin:0">${esc(r.barco.nome)} · ${r.saida.hora} · ${r.qtd} passagens · assentos <b>${r.assentos.join(', ')}</b></p>
+      ${pend?`<div><span class="timer">${r.status==='aguardando'?'Turista tem':'Conferir Pix em'} ${countdown(r.expiraEm)}</span></div>`:''}
+      ${r.status==='pago'?`<div class="ok-banner">✓ Pix confirmado. O voucher já aparece para o turista.</div>`:''}
+      ${r.status==='expirada'?`<div class="err-banner">O prazo venceu e os lugares voltaram à venda.</div>`:''}
+      ${r.status==='aguardando'?`
+      <div class="bigqr">
+        <div class="qr" data-qr="${esc(link)}" data-size="220"></div>
+        <b>Peça ao turista para apontar a câmera</b>
+        <span class="sub" style="text-align:center">Abre a página de pagamento no celular dele. Ele cadastra os passageiros e paga o Pix.</span>
+      </div>
+      <div class="or">ou</div>
+      <label class="f">Mandar pelo WhatsApp<input id="zap" type="tel" inputmode="numeric" placeholder="(21) 99999-9999" value="${esc(fone(ui.zap))}"></label>
+      <a id="zapBtn" class="btn hot block" href="${ui.zap.length>=10?`https://wa.me/55${ui.zap}?text=${encodeURIComponent(msg)}`:'#'}" target="_blank" rel="noopener" ${ui.zap.length>=10?'':'aria-disabled="true" style="opacity:.45;pointer-events:none"'}>Enviar link no WhatsApp</a>
+      <div class="row"><button class="btn ghost sm grow" data-act="copiarLink">Copiar mensagem</button><button class="btn ghost sm grow" data-act="abrirTurista" data-c="${r.codigo}">Ver tela do turista</button></div>`:''}
+      ${pend?`<button class="btn pri block" data-act="confirmar" data-c="${r.codigo}">Confirmar Pix recebido</button>`:''}
+      <button class="btn ghost block" data-act="novaVenda">+ Nova venda</button>
+    </section>`+lista+`</div>`;
+  }
+
+  /* --- montar a venda: horário, assentos, quantidade --- */
+  const saidas=(await api.saidas(hoje())).filter(s=>prom.barcoIds.includes(s.barcoId)&&s.barco.ativo);
+  const barcosP=[...new Map(saidas.map(s=>[s.barcoId,s.barco])).values()];
+  if(!ui.barcoId||!barcosP.some(b=>b.id===ui.barcoId)) ui.barcoId=barcosP[0]?.id;
+  const doBarco=saidas.filter(s=>s.barcoId===ui.barcoId);
+  let sel=doBarco.find(s=>s.id===ui.saidaId&&s.vendendo);
+  if(!sel){ ui.saidaId=null; ui.assentos=[]; }
+  const barco=barcosP.find(b=>b.id===ui.barcoId);
+  const livres=sel?sel.capacidade-sel.ocupadas:0;
+  ui.assentos=ui.assentos.filter(n=>sel&&!sel.mapa[n]);
+  if(ui.assentos.length) ui.qtd=ui.assentos.length;
+  if(sel&&ui.qtd>livres) ui.qtd=Math.max(1,livres);
+  const rg=barco?regraComissao(barco,prom):null;
+  const vu=ui.preco??barco?.preco;
+
+  return head+`
+  ${ativos.length>1?`<label class="f">Quem está vendendo<select id="selProm" data-act="prom">${ativos.map(p=>`<option value="${p.id}" ${p.id===prom.id?'selected':''}>${esc(p.nome)} (#${esc(p.codigo)})</option>`).join('')}</select></label>`:''}
+  ${barcosP.length>1?`<div class="chips">${barcosP.map(b=>`<button class="chip" data-act="barco" data-id="${b.id}" aria-pressed="${b.id===ui.barcoId}">${esc(b.nome)}</button>`).join('')}</div>`:''}
+
+  <div class="lay-venda ${sel?'':'solo'}">
+  <section class="panel a-hor">
+    <div class="row between"><h2>1 · Horário</h2><span class="sub">${esc(barco?.nome||'')}</span></div>
+    ${doBarco.length?`<div class="slots">${doBarco.map(s=>{
+      const pct=Math.min(100,s.ocupadas/s.capacidade*100), dis=!s.vendendo||s.ocupadas>=s.capacidade;
+      return `<button class="slot" data-act="saida" data-id="${s.id}" aria-pressed="${s.id===ui.saidaId}" ${dis?'disabled':''}>
+        <span class="h">${s.hora}</span><span class="r">${s.vendendo&&s.ocupadas<s.capacidade?`vende até ${hora(s.fechaEm)}`:(esc(s.rotulo)||'&nbsp;')}</span>
+        <span class="gauge ${pct>=100?'full':pct>=80?'hi':''}"><i style="width:${pct}%"></i></span>
+        <span class="vagas ${dis?'z':''}">${slotTxt(s)}</span></button>`;}).join('')}</div>`
+      :`<p class="sub">Nenhuma saída hoje para este barco.</p>`}
+  </section>
+
+  ${sel?`
+  <section class="panel a-seat">
+    <div class="row between"><h2>2 · Assentos</h2><span class="sub">${livres} livres de ${sel.capacidade}</span></div>
+    <p class="sub" style="margin:0">${ui.assentos.length?`Escolhidos: <b>${ui.assentos.sort((a,b)=>a-b).join(', ')}</b>`:'Toque nos assentos para escolher, ou só ajuste a quantidade que o sistema escolhe os primeiros livres.'}</p>
+    ${seatMap(sel.capacidade,sel.mapa,ui.assentos,true)}
+  </section>
+
+  <section class="panel a-pass">
+    <h2>3 · Passagens e valor</h2>
+    <div class="row between">
+      <div class="stepper"><button data-act="qtd" data-d="-1" aria-label="Menos">−</button><output>${ui.qtd}</output><button data-act="qtd" data-d="1" aria-label="Mais" ${ui.qtd>=livres?'disabled':''}>+</button></div>
+      <label class="f" style="width:9.5em">Valor por pessoa (R$)<input id="preco" type="number" inputmode="decimal" step="0.01" min="${barco.precoMin}" value="${vu}" ${barco.precoMin>=barco.preco?'readonly':''}></label>
+    </div>
+    <p class="sub" style="margin:0" id="precoInfo">${barco.precoMin>=barco.preco?`Preço fixo deste barco.`:`Tabela R$ ${fmt(barco.preco)} · mínimo R$ ${fmt(barco.precoMin)}`}</p>
+    <div class="total"><span class="k">Total (${ui.qtd} passagens)</span><b id="tTotal">${money(vu*ui.qtd)}</b></div>
+    <div class="row between sub" style="margin:0"><span>Sua comissão (${regraTxt(rg)})</span><span id="tCom">${money(calcComissao(rg,vu,ui.qtd))}</span></div>
+    <div class="row between sub" style="margin:0" id="tDescRow" ${vu<barco.preco?'':'hidden'}><span>Desconto dado (R$)</span><span id="tDesc">${money((barco.preco-vu)*ui.qtd)}</span></div>
+    ${ui.err?`<div class="err-banner">${esc(ui.err)}</div>`:''}
+    <button class="btn pri block" data-act="gerar">Gerar QR de pagamento</button>
+    <p class="sub" style="margin:0">Os lugares ficam presos por <b>${barco.tempoPag} min</b> para o turista pagar.</p>
+  </section>`:''}
+  <div class="a-list">${lista}</div>
+  </div>`;
+}
+
+/* ---------------- CRACHÁ ---------------- */
+async function vCracha(){
+  const prom=(await api.promotores()).find(p=>p.id===ui.promotorId); const barcos=await api.barcos();
+  const nomes=prom.barcoIds.map(id=>barcos.find(b=>b.id===id)?.nome).filter(Boolean);
+  return `
+  <button class="btn link" data-go="vender">‹ Voltar para vendas</button>
+  <div class="badge">
+    <div class="k" style="color:inherit;opacity:.7">Credencial digital · Segurança na orla</div>
+    <div class="avatar">${esc(iniciais(prom.nome))}</div>
+    <h1 style="color:inherit">${esc(prom.nome)}</h1>
+    <div>Promotor credenciado <span class="code">#${esc(prom.codigo)}</span></div>
+    <span class="pill p-pago">● ${prom.ativo?'Vendedor autorizado':'Credencial suspensa'}</span>
+    <div class="qr" data-qr="MARLAGOS|PROMOTOR|${esc(prom.codigo)}|${esc(prom.nome)}|${prom.ativo?'ATIVO':'SUSPENSO'}" data-size="150"></div>
+    <div style="font-size:13.5px"><b>Barcos:</b> ${esc(nomes.join(', '))}<br><b>Validade:</b> Temporada ${new Date().getFullYear()}</div>
+  </div>
+  <p class="note">Mostre este crachá ao turista. O QR identifica o promotor e o barco pelo qual ele está autorizado a vender.</p>`;
+}
+
+/* ---------------- TURISTA (link / QR) ---------------- */
+function formPax(r,travado){
+  const pax=Array.from({length:r.qtd},(_,i)=>r.passageiros[i]||{nome:'',doc:''});
+  return `<form id="fPax" class="list" style="gap:10px" novalidate>
+    ${pax.map((p,i)=>`<div class="pax"><div class="row between"><span class="k">Passageiro ${i+1}</span><span class="k">Assento ${r.assentos[i]??'—'}</span></div>
+      <input type="text" id="n${i}" placeholder="Nome completo" value="${esc(p.nome)}" ${i===0?'autocomplete="name"':''} ${travado?'disabled':''}>
+      <input type="text" id="d${i}" placeholder="CPF ou RG" value="${esc(p.doc)}" ${travado?'disabled':''}></div>`).join('')}
+    <label class="f">Seu WhatsApp (para receber o voucher)<input type="tel" id="tz" inputmode="numeric" placeholder="(21) 99999-9999" value="${esc(fone(r.whatsapp))}" ${travado?'disabled':''}></label>
+  </form>`;
+}
+function lerPax(qtd){
+  const lista=[];
+  for(let i=0;i<qtd;i++){ const n=$('#n'+i).value.trim(), d=$('#d'+i).value.trim();
+    if(n.split(/\s+/).length<2) throw new Error(`Passageiro ${i+1}: escreva nome e sobrenome.`);
+    if(d.replace(/\W/g,'').length<5) throw new Error(`Passageiro ${i+1}: informe CPF ou RG.`);
+    lista.push({nome:n,doc:docFmt(d)}); }
+  return lista;
+}
+async function vTurista(){
+  const r=await api.reserva(ui.turista);
+  if(!r) return `<div class="panel center"><h1>Reserva não encontrada</h1><p class="sub">Confira o link recebido ou fale com o promotor.</p></div>`;
+  const cfg=await api.config();
+  const cab=`<section><div class="k">${esc(r.barco.cais)}</div><h1>${esc(r.barco.nome)}</h1><p class="sub">${dataBR(r.saida.data)} · saída às <b>${r.saida.hora}</b>${r.saida.rotulo?' · '+esc(r.saida.rotulo):''} · ${r.qtd} passagens · assentos ${r.assentos.join(', ')}</p></section>`;
+  const btnAtualizar=`<button class="btn ghost block" data-act="atualizar">↻ Atualizar situação do pagamento</button>`;
+
+  if(r.status==='cancelada') return cab+`<div class="panel center"><h2>Reserva cancelada</h2><p class="sub">Fale com o promotor ${esc(r.promotor?.nome||'')} para uma nova reserva.</p></div>`;
+  if(r.status==='expirada') return cab+`<div class="panel center"><h2>O prazo para pagar terminou</h2>
+    <p class="sub">Os lugares voltaram à venda às ${hora(r.expiraEm||r.expirouEm)}. Se você já fez o Pix, mostre o comprovante ao promotor ${esc(r.promotor?.nome||'')}: ele confirma se ainda houver lugar no barco.</p></div>${btnAtualizar}`;
+
+  if(r.status==='pago'){
+    const faltaPax=r.passageiros.length<r.qtd;
+    const link=linkPublico(cfg,r.codigo);
+    const zapTxt=encodeURIComponent(`Meu voucher do passeio ${r.barco.nome} · ${dataBR(r.saida.data)} ${r.saida.hora} · código ${r.codigo}\n${link}`);
+    return `
+    <div class="ok-banner" style="font-size:17px">✓ Pagamento confirmado! ${money(r.valor)}</div>`+cab+
+    (faltaPax?`<section class="panel"><h2>Falta cadastrar os passageiros</h2><p class="sub" style="margin:0">A Capitania exige nome e documento de todos a bordo.</p>${formPax(r,false)}
+      ${ui.turErr?`<div class="err-banner">${esc(ui.turErr)}</div>`:''}<button class="btn pri block" data-act="salvarPax">Salvar passageiros e ver voucher</button></section>`:`
+    <div class="lay2"><div class="ticket center">
+      <div class="k">Voucher de embarque</div>
+      <div class="qr" data-qr="MARLAGOS|${r.codigo}" data-size="190"></div>
+      <div class="code" style="font-size:26px">${r.codigo}</div>
+      <div class="perf"></div>
+      <div style="text-align:left;width:100%;display:flex;flex-direction:column;gap:6px">
+        <div class="row between"><span class="k">Passageiro</span><span class="k">Assento</span></div>
+        ${r.passageiros.map((p,i)=>`<div class="row between"><span>${i+1}. ${esc(p.nome)} ${p.embarcado?'<span class="pill p-emb">a bordo</span>':''}</span><b class="code">${r.assentos[i]??'—'}</b></div>`).join('')}
+      </div>
+    </div>
+    <div class="list" style="gap:12px"><button class="btn hot block" data-act="baixarVoucher" data-c="${r.codigo}">Baixar voucher (imagem)</button>
+    <a class="btn ghost block" href="https://wa.me/${r.whatsapp?'55'+r.whatsapp:''}?text=${zapTxt}" target="_blank" rel="noopener">Guardar no meu WhatsApp</a>
+    <p class="note">Chegue ao cais 20 minutos antes da saída e mostre o QR ao marinheiro. A imagem abre mesmo sem internet. Seus dados já estão na lista oficial da Capitania dos Portos.</p></div></div>`);
+  }
+
+  const b=r.barco, inf=r.status==='pagamento_informado';
+  const payload=pixPayload({chave:b.pixChave,nome:b.pixNome,cidade:b.pixCidade,valor:r.valor,txid:r.codigo});
+  return cab+`
+  <div><span class="timer">${inf?'Barco conferindo seu Pix · prazo':'Lugares reservados por'} ${countdown(r.expiraEm)}</span></div>
+  ${inf?`<div class="ok-banner">Recebemos seu aviso de pagamento. Assim que o barco confirmar o Pix, o voucher aparece nesta tela.</div>${btnAtualizar}`:''}
+  <div class="lay2">
+  <section class="panel">
+    <h2>1 · Dados para a Capitania</h2>
+    <p class="sub" style="margin:0">A Marinha exige nome e documento de todos a bordo. Preencha aqui para não pegar fila no cais.</p>
+    ${formPax(r,inf)}
+  </section>
+  ${inf?'':`<section class="panel">
+    <h2>2 · Pagar com Pix</h2>
+    <div class="total" style="border:0;padding:0"><span class="k">Total (${r.qtd} × ${fmt(r.valorUnit)})</span><b>${money(r.valor)}</b></div>
+    <button class="btn pri block" data-act="copiarPix">Copiar código Pix</button>
+    <p class="sub" style="margin:0">Abra o app do seu banco › Pix › <b>Pix copia e cola</b> › cole o código. Recebedor: <b>${esc(b.pixNome)}</b>.</p>
+    <div class="pixbox" id="pixtxt">${esc(payload)}</div>
+    <details class="more"><summary>Pagar com outro celular (QR do Pix)</summary><div class="bigqr"><div class="qr" data-qr="${esc(payload)}" data-size="180"></div></div></details>
+    ${ui.turErr?`<div class="err-banner">${esc(ui.turErr)}</div>`:''}
+    <button class="btn hot block" data-act="informarPix">Já paguei · enviar dados</button>
+    <p class="sub" style="margin:0">Se o prazo acabar antes do pagamento, os lugares voltam à venda.</p>
+  </section>`}</div>`;
+}
+
+/* ---------------- CAIS (check-in) ---------------- */
+async function vCais(){
+  const saidas=await api.saidas(hoje());
+  if(!ui.caisSaida||!saidas.some(s=>s.id===ui.caisSaida)){ const now=Date.now(); ui.caisSaida=(saidas.filter(s=>saidaTs(s)>=now-30*MIN).sort((a,b)=>saidaTs(a)-saidaTs(b))[0]||saidas[0])?.id; }
+  const s=saidas.find(x=>x.id===ui.caisSaida);
+  const res=s?(await api.reservas({saidaId:s.id})).filter(r=>r.status==='pago'):[];
+  const tot=res.reduce((a,r)=>a+r.qtd,0), emb=res.reduce((a,r)=>a+r.passageiros.filter(p=>p.embarcado).length,0);
+  const pend=res.filter(r=>r.passageiros.length<r.qtd||r.passageiros.some(p=>!p.embarcado));
+  const pg=paginate('cais',pend,5);
+  const m=ui.caisMsg; let card='';
+  if(m?.r){
+    const r=m.r;
+    card=`<section class="panel">
+      ${m.ok?`<div class="ok-banner">✓ ${m.auto?`${m.auto} embarcado${m.auto>1?'s':''}`:'Voucher válido'} · ${esc(r.barco.nome)} ${r.saida.hora}</div>`:`<div class="err-banner">${esc(m.aviso)}</div>`}
+      <div class="row between"><span class="code" style="font-size:20px">${r.codigo}</span>${pill(r.status)}</div>
+      ${r.passageiros.map((p,i)=>`<label class="chk"><input type="checkbox" data-act="emb" data-c="${r.codigo}" data-i="${i}" ${p.embarcado?'checked':''} ${r.status!=='pago'?'disabled':''}><span class="grow">${esc(p.nome)}<br><small class="sub">${esc(p.doc)}</small></span><b class="code">${r.assentos[i]??''}</b></label>`).join('')||'<p class="sub">Passageiros ainda não cadastrados. Peça para o turista preencher no link.</p>'}
+      ${r.status==='pago'&&r.passageiros.length?`<button class="btn pri block" data-act="embTodos" data-c="${r.codigo}">Embarcar todos (${r.passageiros.length})</button>`:''}
+    </section>`;
+  } else if(m?.erro) card=`<div class="err-banner">${esc(m.erro)}</div>`;
+  return `
+  <section><h1>Check-in no cais</h1><p class="sub">Leia o voucher do turista e confirme quem subiu a bordo.</p></section>
+  <div class="chips">${saidas.map(x=>`<button class="chip" data-act="caisSaida" data-id="${x.id}" aria-pressed="${x.id===ui.caisSaida}">${esc(x.barco.nome.split(' ')[0])} ${x.hora}</button>`).join('')}</div>
+  <div class="lay2"><div class="list" style="gap:14px">
+  <section class="panel">
+    <div class="row between"><h2>Leitor de QR</h2><label class="sw"><input type="checkbox" id="autoEmb" ${ui.autoEmb?'checked':''}>Embarcar ao ler</label></div>
+    <div class="cam" id="cam">${ui.camOn?'':`<span>${esc(ui.camErro||'Câmera desligada')}</span>`}<div class="frame" ${ui.camOn?'':'hidden'}></div><div class="fb" id="camfb" hidden></div></div>
+    <button class="btn ${ui.camOn?'ghost':'pri'} block" data-act="camera">${ui.camOn?'Fechar câmera':'Abrir câmera e ler QR'}</button>
+    <div class="or">ou digite o código</div>
+    <form id="fCais" class="row" novalidate>
+      <input class="grow code" style="width:auto;flex:1" type="text" id="caisCod" placeholder="Código ou leitura do QR" value="${esc(ui.caisCodigo)}" autocomplete="off" autocapitalize="characters">
+      <button class="btn pri" type="submit">Validar</button>
+    </form>
+    <p class="sub" style="margin:0">Se a câmera não ler (sol forte, tela trincada), digite o código do voucher. Leitores de QR por Bluetooth/USB também digitam aqui sozinhos.</p>
+  </section>
+  ${card}
+  </div>
+  ${s?`<section class="panel">
+    <div class="row between"><h2>${esc(s.barco.nome)} · ${s.hora}</h2><span class="sub"><b>${emb}</b> / ${tot} a bordo</span></div>
+    ${seatMap(s.capacidade,s.mapa)}
+    <div class="list">${pg.items.map(r=>{const e=r.passageiros.filter(p=>p.embarcado).length;return `
+      <div class="item"><div><div class="t code">${r.codigo}</div><div class="s">${esc(r.passageiros[0]?.nome||'sem cadastro')}${r.qtd>1?` + ${r.qtd-1}`:''} · assentos ${r.assentos.join(', ')}</div></div>
+      <div><button class="btn ghost sm" data-act="caisAbrir" data-c="${r.codigo}">${e}/${r.qtd} · Abrir</button></div></div>`;}).join('')||'<p class="sub">Todos os passageiros pagos já embarcaram.</p>'}</div>
+    ${pager(pg)}
+    <button class="btn ghost block" data-go="manifesto" data-saida="${s.id}">Ver manifesto desta saída</button>
+  </section>`:''}</div>`;
+}
+
+/* ---------------- MANIFESTO (Capitania) ---------------- */
+async function linhasManifesto(saidaId){
+  const res=(await api.reservas({saidaId})).filter(r=>r.status==='pago');
+  return res.flatMap(r=>r.passageiros.map((p,i)=>({...p,codigo:r.codigo,assento:r.assentos[i]}))).sort((a,b)=>(a.assento||999)-(b.assento||999));
+}
+async function vManifesto(){
+  const saidas=await api.saidas(hoje());
+  if(!ui.manSaida||!saidas.some(s=>s.id===ui.manSaida)) ui.manSaida=ui.caisSaida||saidas[0]?.id;
+  const s=saidas.find(x=>x.id===ui.manSaida);
+  if(!s) return `<div class="panel"><h1>Sem saídas hoje</h1></div>`;
+  const linhas=await linhasManifesto(s.id);
+  const emb=linhas.filter(p=>p.embarcado).length;
+  const pg=paginate('man',linhas,10);
+  const podeImprimir=window.self===window.top;
+  return `
+  <section class="no-print"><h1>Manifesto de embarque</h1><p class="sub">Lista oficial para a fiscalização da Capitania dos Portos.</p></section>
+  <div class="chips no-print">${saidas.map(x=>`<button class="chip" data-act="manSaida" data-id="${x.id}" aria-pressed="${x.id===ui.manSaida}">${esc(x.barco.nome.split(' ')[0])} ${x.hora}</button>`).join('')}</div>
+  <section class="panel">
+    <div class="man-head">
+      <div class="row between"><span class="k">Marinha do Brasil · Capitania dos Portos</span><span class="k">Manifesto de passageiros</span></div>
+      <div class="ti">Embarcação: ${esc(s.barco.nome)}</div>
+      <div>Inscrição: <b class="code">${esc(s.barco.inscricao)}</b> · Mestre: <b>${esc(s.barco.mestre)}</b></div>
+      <div>Saída: <b>${dataBR(s.data)} às ${s.hora}</b> · ${esc(s.barco.cais)}</div>
+    </div>
+    <div class="tw"><table>
+      <thead><tr><th class="n">Assento</th><th>Passageiro</th><th>Documento (CPF/RG)</th><th>Voucher</th><th>Situação</th></tr></thead>
+      <tbody>${pg.items.map(p=>`<tr><td class="n code">${p.assento??'—'}</td><td>${esc(p.nome)}</td><td class="code" style="font-weight:500">${esc(p.doc)}</td><td class="code" style="font-weight:500">${p.codigo}</td><td><span class="pill ${p.embarcado?'p-emb':'p-nao'}">${p.embarcado?'Embarcado':'A embarcar'}</span></td></tr>`).join('')||'<tr><td colspan="5" class="sub">Nenhum passageiro pago nesta saída.</td></tr>'}</tbody>
+    </table></div>
+    ${pager(pg)}
+    <div class="stats">
+      <div class="stat"><span class="k">Embarcados (pessoas)</span><span class="v">${emb}</span></div>
+      <div class="stat"><span class="k">Lotação (pessoas)</span><span class="v">${linhas.length} / ${s.capacidade}</span></div>
+    </div>
+    <div class="row no-print">
+      <button class="btn pri grow" data-act="copiarMan">Copiar lista completa</button>
+      ${podeImprimir?`<button class="btn ghost grow" data-act="imprimir">Imprimir / PDF</button>`:''}
+    </div>
+  </section>`;
+}
+
+/* ---------------- GESTÃO (dono) ---------------- */
+async function vGestao(){
+  const tabs=[['resumo','Fechamento'],['saidas','Saídas'],['barcos','Barcos'],['promotores','Promotores'],['config','Ajustes']];
+  const head=`<section><h1>Gestão</h1><p class="sub">Área do dono da embarcação.</p></section>
+  <div class="tabs" role="tablist">${tabs.map(([k,l])=>`<button role="tab" aria-selected="${ui.gTab===k}" data-act="gtab" data-t="${k}">${l}</button>`).join('')}</div>`;
+  return head + await ({resumo:gResumo,saidas:gSaidas,barcos:gBarcos,promotores:gPromotores,config:gConfig}[ui.gTab])();
+}
+/* ---------- Fechamento do dia ---------- */
+async function dadosFechamento(data,barcoId){
+  const [res,proms,saidas]=[await api.reservas({data}),await api.promotores(),await api.saidas(data)];
+  const doBarco=r=>!barcoId||r.saida.barcoId===barcoId;
+  const todas=res.filter(doBarco), pagas=todas.filter(r=>r.status==='pago');
+  const soma=(arr,f)=>arr.reduce((a,r)=>a+f(r),0);
+  const tot={bruto:soma(pagas,r=>r.valor),com:soma(pagas,r=>r.comissao),pax:soma(pagas,r=>r.qtd),vendas:pagas.length,
+    desc:soma(pagas,r=>Math.max(0,(r.precoTabela??r.valorUnit)-r.valorUnit)*r.qtd)};
+  tot.liq=tot.bruto-tot.com; tot.ticket=tot.pax?tot.bruto/tot.pax:0;
+  const porVend=proms.map(p=>{const x=pagas.filter(r=>r.promotorId===p.id);return {nome:p.nome,cod:p.codigo,pix:p.pixChave||'',vendas:x.length,pax:soma(x,r=>r.qtd),bruto:soma(x,r=>r.valor),com:soma(x,r=>r.comissao),desc:soma(x,r=>Math.max(0,(r.precoTabela??r.valorUnit)-r.valorUnit)*r.qtd)};})
+    .filter(v=>v.vendas).sort((a,b)=>b.bruto-a.bruto).map(v=>({...v,liq:v.bruto-v.com}));
+  const porSaida=saidas.filter(s=>!barcoId||s.barcoId===barcoId).map(s=>{const x=pagas.filter(r=>r.saidaId===s.id);return {nome:`${s.barco.nome} ${s.hora}`,cap:s.capacidade,pax:soma(x,r=>r.qtd),bruto:soma(x,r=>r.valor),com:soma(x,r=>r.comissao)};})
+    .map(v=>({...v,liq:v.bruto-v.com,ocup:v.cap?v.pax/v.cap*100:0}));
+  const pend=todas.filter(r=>['aguardando','pagamento_informado'].includes(r.status));
+  return {tot,porVend,porSaida,pend,pendValor:soma(pend,r=>r.valor),venc:todas.filter(r=>r.status==='expirada').length,canc:todas.filter(r=>r.status==='cancelada').length};
+}
+const pct1 = v => v.toLocaleString('pt-BR',{maximumFractionDigits:0})+'%';
+async function gResumo(){
+  const barcos=await api.barcos();
+  const d=await dadosFechamento(ui.gData,ui.gBarco);
+  const t=d.tot, podeImprimir=window.self===window.top;
+  const pgV=paginate('fv',d.porVend,8), pgS=paginate('fs',d.porSaida,8), pg=paginate('ab',d.pend.sort((a,b)=>a.expiraEm-b.expiraEm),4);
+  return `
+  <div class="row no-print">
+    <label class="f grow">Dia<input type="date" id="gData" value="${ui.gData}" data-act="gData"></label>
+    <label class="f grow">Barco<select id="gBarco" data-act="gBarco"><option value="">Todos os barcos</option>${barcos.map(b=>`<option value="${b.id}" ${b.id===ui.gBarco?'selected':''}>${esc(b.nome)}</option>`).join('')}</select></label>
+  </div>
+  <section class="panel">
+    <div class="row between"><div><div class="k">Fechamento do dia</div><h1>${dataBR(ui.gData)}</h1></div><span class="sub">${ui.gBarco?esc(barcos.find(b=>b.id===ui.gBarco)?.nome):'Todos os barcos'}</span></div>
+    <div class="stats six">
+      <div class="stat"><span class="k">Receita bruta (R$)</span><span class="v">${money(t.bruto)}</span></div>
+      <div class="stat"><span class="k">Comissões (R$)</span><span class="v">${money(t.com)}</span></div>
+      <div class="stat hi"><span class="k">Receita líquida (R$)</span><span class="v">${money(t.liq)}</span></div>
+      <div class="stat"><span class="k">Passageiros (pessoas)</span><span class="v">${t.pax}</span></div>
+      <div class="stat"><span class="k">Ticket médio (R$/pessoa)</span><span class="v">${money(t.ticket)}</span></div>
+      <div class="stat"><span class="k">Descontos dados (R$)</span><span class="v">${money(t.desc)}</span></div>
+    </div>
+    <p class="sub" style="margin:0">Entra só o que está <b>pago</b>. Receita líquida = bruta − comissões dos vendedores.</p>
+  </section>
+  <section class="panel">
+    <h2>Vendas e comissões por vendedor</h2>
+    <div class="tw"><table>
+      <thead><tr><th>Vendedor</th><th class="n">Vendas (nº)</th><th class="n">Pax (pessoas)</th><th class="n">Bruto (R$)</th><th class="n">Comissão (R$)</th><th class="n">Líquido (R$)</th></tr></thead>
+      <tbody>${pgV.items.map(v=>`<tr><td>${esc(v.nome)} <span class="sub">#${esc(v.cod)}</span></td><td class="n">${v.vendas}</td><td class="n">${v.pax}</td><td class="n">${money(v.bruto)}</td><td class="n">${money(v.com)}</td><td class="n">${money(v.liq)}</td></tr>`).join('')||'<tr><td colspan="6" class="sub">Sem vendas pagas.</td></tr>'}</tbody>
+      ${d.porVend.length?`<tfoot><tr><td>Total</td><td class="n">${t.vendas}</td><td class="n">${t.pax}</td><td class="n">${money(t.bruto)}</td><td class="n">${money(t.com)}</td><td class="n">${money(t.liq)}</td></tr></tfoot>`:''}
+    </table></div>${pager(pgV)}
+  </section>
+  <section class="panel">
+    <h2>Por saída</h2>
+    <div class="tw"><table>
+      <thead><tr><th>Saída</th><th class="n">Pax / lugares</th><th class="n">Ocupação (%)</th><th class="n">Bruto (R$)</th><th class="n">Comissão (R$)</th><th class="n">Líquido (R$)</th></tr></thead>
+      <tbody>${pgS.items.map(v=>`<tr><td>${esc(v.nome)}</td><td class="n">${v.pax} / ${v.cap}</td><td class="n">${pct1(v.ocup)}</td><td class="n">${money(v.bruto)}</td><td class="n">${money(v.com)}</td><td class="n">${money(v.liq)}</td></tr>`).join('')||'<tr><td colspan="6" class="sub">Sem saídas.</td></tr>'}</tbody>
+    </table></div>${pager(pgS)}
+  </section>
+  <div class="lay2">
+  <section class="panel">
+    <h2>Comissões a pagar</h2>
+    <div class="list">${d.porVend.map(v=>`<div class="item"><div><div class="t">${esc(v.nome)}</div><div class="s">Pix: ${v.pix?`<span class="code" style="font-weight:500">${esc(v.pix)}</span>`:'sem chave cadastrada'}</div></div><div>${money(v.com)}</div></div>`).join('')||'<p class="sub">Nada a pagar.</p>'}</div>
+  </section>
+  <section class="panel">
+    <div class="row between"><h2>Fora do fechamento</h2></div>
+    <div class="rules"><b>${d.pend.length}</b><span>Pix em aberto, somando R$ ${fmt(d.pendValor)}. Confirme ou cancele antes de fechar.</span><b>${d.venc}</b><span>reservas com prazo vencido</span><b>${d.canc}</b><span>reservas canceladas</span></div>
+    <div class="list">${pg.items.map(r=>`<div class="item"><div><div class="t"><span class="code">${r.codigo}</span> · ${r.saida.hora}</div><div class="s">${r.qtd} pessoas · vence em <b>${countdown(r.expiraEm)}</b></div></div><div style="text-align:right">${money(r.valor)}<div>${pill(r.status)}</div></div>
+      <div class="a"><button class="btn pri sm" data-act="confirmar" data-c="${r.codigo}">Confirmar Pix recebido</button><button class="btn ghost sm" data-act="cancelar" data-c="${r.codigo}">Cancelar</button></div></div>`).join('')}</div>
+    ${pager(pg)}
+  </section>
+  </div>
+  <div class="row no-print">
+    <button class="btn pri grow" data-act="copiarFech">Copiar fechamento (WhatsApp)</button>
+    ${podeImprimir?`<button class="btn ghost grow" data-act="imprimir">Imprimir / PDF</button>`:''}
+  </div>`;
+}
+async function textoFechamento(){
+  const barcos=await api.barcos(); const d=await dadosFechamento(ui.gData,ui.gBarco); const t=d.tot;
+  const R=v=>'R$ '+fmt(v);
+  return `*FECHAMENTO DO DIA ${dataBR(ui.gData)}*\n${ui.gBarco?barcos.find(b=>b.id===ui.gBarco)?.nome:'Todos os barcos'}\n\n`+
+    `Receita bruta: ${R(t.bruto)}\nComissões: ${R(t.com)}\n*Receita líquida: ${R(t.liq)}*\nPassageiros: ${t.pax} pessoas · ticket médio ${R(t.ticket)}\nDescontos dados: ${R(t.desc)}\n\n`+
+    `*Por vendedor*\n`+d.porVend.map(v=>`${v.nome} #${v.cod}: ${v.vendas} vendas · ${v.pax} pax · bruto ${R(v.bruto)} · comissão ${R(v.com)}`).join('\n')+
+    `\n\n*Por saída*\n`+d.porSaida.map(v=>`${v.nome}: ${v.pax}/${v.cap} pax · bruto ${R(v.bruto)} · líquido ${R(v.liq)}`).join('\n')+
+    `\n\nFora do fechamento: ${d.pend.length} Pix em aberto (${R(d.pendValor)}), ${d.venc} vencidas, ${d.canc} canceladas.`;
+}
+async function gSaidas(){
+  const saidas=await api.saidas(ui.gData); const barcos=await api.barcos();
+  const e=ui.edit?.tipo==='saida';
+  return `
+  <label class="f">Dia<input type="date" id="gData" value="${ui.gData}" data-act="gData"></label>
+  <section class="panel">
+    <div class="list">${saidas.map(s=>{const l=s.capacidade-s.ocupadas;return `<div class="item">
+      <div><div class="t">${s.hora} · ${esc(s.barco.nome)}</div><div class="s">${esc(s.rotulo)||'Saída regular'} · ${s.ocupadas}/${s.capacidade} pessoas · vende até ${hora(s.fechaEm)}</div></div>
+      <div><span class="pill ${s.vendendo?(l>0?'p-pago':'p-nao'):'p-cancelada'}">${slotTxt(s)}</span></div>
+      <div class="a"><button class="btn ghost sm" data-act="toggleSaida" data-id="${s.id}" data-st="${s.status}">${s.status==='aberta'?'Encerrar vendas':'Reabrir vendas'}</button></div></div>`;}).join('')||'<p class="sub">Nenhuma saída neste dia.</p>'}</div>
+  </section>
+  ${e?`<section class="panel"><h2>Saída extra</h2>
+    <form id="fSaida" class="list" style="gap:10px" novalidate>
+      <label class="f">Barco<select id="sBarco">${barcos.map(b=>`<option value="${b.id}">${esc(b.nome)}</option>`).join('')}</select></label>
+      <div class="row"><label class="f grow">Horário<input id="sHora" type="text" placeholder="17:30" inputmode="numeric"></label><label class="f grow">Lugares (pessoas)<input id="sCap" type="number" min="1" value="${barcos[0]?.capacidade||40}"></label></div>
+      <label class="f">Rótulo (opcional)<input id="sRot" type="text" placeholder="Pôr do sol, Mergulho…"></label>
+      <div class="row"><button class="btn pri grow" type="submit">Criar saída</button><button class="btn ghost" type="button" data-act="fecharEdit">Cancelar</button></div>
+    </form></section>`:`<button class="btn ghost block" data-act="novo" data-tipo="saida">+ Saída extra neste dia</button>`}
+  <p class="note">Os horários fixos de cada barco (em Barcos) viram saídas automaticamente todo dia.</p>`;
+}
+async function gBarcos(){
+  const barcos=await api.barcos();
+  if(ui.edit?.tipo==='barco'){
+    const b=ui.edit.obj||{nome:'',inscricao:'',mestre:'',cais:'Cais da Praia dos Anjos',capacidade:40,preco:150,precoMin:150,comissaoTipo:'pct',comissaoValor:15,pixChave:'',pixNome:'',pixCidade:'ARRAIAL DO CABO',...REGRAS_PADRAO,horarios:[['10:00',''],['14:00','']],ativo:true};
+    return `<section class="panel"><h2>${b.id?'Editar barco':'Novo barco'}</h2>
+    <form id="fBarco" class="list" style="gap:10px" novalidate>
+      <label class="f">Nome da embarcação<input id="bNome" type="text" value="${esc(b.nome)}"></label>
+      <div class="row"><label class="f grow">Inscrição Capitania<input id="bInsc" type="text" value="${esc(b.inscricao)}"></label><label class="f grow">Mestre / Comandante<input id="bMestre" type="text" value="${esc(b.mestre)}"></label></div>
+      <label class="f">Cais de embarque<input id="bCais" type="text" value="${esc(b.cais)}"></label>
+      <label class="f">Lotação (pessoas)<input id="bCap" type="number" min="1" value="${b.capacidade}"></label>
+      <div class="f">Valor da passagem e comissão</div>
+      <div class="row"><label class="f grow">Preço de tabela (R$)<input id="bPreco" type="number" min="0" step="0.01" value="${b.preco}"></label><label class="f grow">Preço mínimo (R$)<input id="bPMin" type="number" min="0" step="0.01" value="${b.precoMin??b.preco}"></label></div>
+      <p class="sub" style="margin:0">O vendedor pode dar desconto até o preço mínimo. Mínimo igual à tabela deixa o preço fixo.</p>
+      <div class="row"><label class="f grow">Tipo de comissão<select id="bCTipo"><option value="pct" ${b.comissaoTipo!=='fixo'?'selected':''}>% do valor vendido</option><option value="fixo" ${b.comissaoTipo==='fixo'?'selected':''}>R$ fixo por passagem</option></select></label><label class="f grow">Comissão (% ou R$)<input id="bCVal" type="number" min="0" step="0.01" value="${b.comissaoValor??15}"></label></div>
+      <label class="f">Horários fixos (separe com ;)<input id="bHor" type="text" value="${esc(b.horarios.map(h=>h[1]?`${h[0]} ${h[1]}`:h[0]).join('; '))}" placeholder="10:00; 12:00; 16:00 Pôr do sol"></label>
+      <div class="f">Regras de prazo da reserva</div>
+      <div class="row"><label class="f grow">Pagar em (min)<input id="bTP" type="number" min="3" max="120" value="${b.tempoPag}"></label><label class="f grow">Conferir Pix em (min)<input id="bTC" type="number" min="5" max="240" value="${b.tempoConf}"></label><label class="f grow">Fechar vendas antes (min)<input id="bCorte" type="number" min="0" max="240" value="${b.corteMin}"></label></div>
+      <label class="f">Chave Pix do barco<input id="bPix" type="text" value="${esc(b.pixChave)}"></label>
+      <div class="row"><label class="f grow">Nome do recebedor<input id="bPixN" type="text" value="${esc(b.pixNome)}"></label><label class="f grow">Cidade<input id="bPixC" type="text" value="${esc(b.pixCidade)}"></label></div>
+      <label class="chk" style="border:0"><input type="checkbox" id="bAtivo" ${b.ativo?'checked':''}><span>Barco ativo para vendas</span></label>
+      <div class="row"><button class="btn pri grow" type="submit">Salvar barco</button><button class="btn ghost" type="button" data-act="fecharEdit">Cancelar</button></div>
+    </form></section>`;
+  }
+  return `<section class="panel"><div class="list">${barcos.map(b=>`<div class="item">
+    <div><div class="t">${esc(b.nome)} ${b.ativo?'':'<span class="pill p-cancelada">Inativo</span>'}</div><div class="s">Insc. ${esc(b.inscricao)} · ${b.capacidade} pessoas · ${b.horarios.map(h=>h[0]).join(', ')}</div>
+      <div class="s">Pagar em ${b.tempoPag} min · conferir em ${b.tempoConf} min · fecha ${b.corteMin} min antes</div></div>
+    <div style="text-align:right">${money(b.preco)}<div class="s">mín. R$ ${fmt(b.precoMin)}</div><div class="s">comissão ${regraTxt(regraComissao(b))}</div></div>
+    <div class="a"><button class="btn ghost sm" data-act="editar" data-tipo="barco" data-id="${b.id}">Editar</button></div></div>`).join('')}</div></section>
+    <button class="btn ghost block" data-act="novo" data-tipo="barco">+ Cadastrar barco</button>
+    <section class="panel"><h2>Como funcionam os prazos</h2>
+      <div class="rules">
+        <b>1</b><span>Ao gerar o QR ou o link, os lugares ficam presos pelo tempo de <i>pagar em</i>.</span>
+        <b>2</b><span>Quando o turista toca em <i>Já paguei</i>, o prazo passa a ser o de <i>conferir Pix</i>, para o barco checar no banco.</span>
+        <b>3</b><span>Nenhum prazo passa do horário em que as vendas fecham antes da saída.</span>
+        <b>4</b><span>Prazo vencido libera os lugares automaticamente.</span>
+        <b>5</b><span>Pix que chega depois do prazo é confirmado só se ainda houver lugar. Se os assentos antigos foram vendidos, o sistema dá outros livres. Se o barco lotou, devolva o Pix ou remarque.</span>
+      </div></section>`;
+}
+async function gPromotores(){
+  const proms=await api.promotores(), barcos=await api.barcos();
+  if(ui.edit?.tipo==='promotor'){
+    const p=ui.edit.obj||{nome:'',codigo:String(400+proms.length+10),whatsapp:'',pixChave:'',comissaoTipo:'',comissaoValor:0,barcoIds:[barcos[0]?.id],ativo:true};
+    return `<section class="panel"><h2>${p.id?'Editar promotor':'Novo promotor'}</h2>
+    <form id="fProm" class="list" style="gap:10px" novalidate>
+      <label class="f">Nome completo<input id="pNome" type="text" value="${esc(p.nome)}"></label>
+      <div class="row"><label class="f grow">Nº do crachá<input id="pCod" type="text" value="${esc(p.codigo)}"></label><label class="f grow">WhatsApp<input id="pZap" type="tel" value="${esc(fone(p.whatsapp))}"></label></div>
+      <label class="f">Chave Pix do vendedor (para pagar a comissão)<input id="pPix" type="text" value="${esc(p.pixChave||'')}"></label>
+      <div class="row"><label class="f grow">Comissão deste vendedor<select id="pCTipo"><option value="" ${!p.comissaoTipo?'selected':''}>Usar a do barco</option><option value="pct" ${p.comissaoTipo==='pct'?'selected':''}>% do valor vendido</option><option value="fixo" ${p.comissaoTipo==='fixo'?'selected':''}>R$ fixo por passagem</option></select></label><label class="f grow">Valor (% ou R$)<input id="pCVal" type="number" min="0" step="0.01" value="${p.comissaoValor||0}"></label></div>
+      <div class="f">Pode vender para</div>
+      ${barcos.map(b=>`<label class="chk"><input type="checkbox" class="pBarco" value="${b.id}" ${p.barcoIds.includes(b.id)?'checked':''}><span>${esc(b.nome)}</span></label>`).join('')}
+      <label class="chk" style="border:0"><input type="checkbox" id="pAtivo" ${p.ativo?'checked':''}><span>Credencial ativa</span></label>
+      <div class="row"><button class="btn pri grow" type="submit">Salvar promotor</button><button class="btn ghost" type="button" data-act="fecharEdit">Cancelar</button></div>
+    </form></section>`;
+  }
+  const pg=paginate('proms',proms,6);
+  return `<section class="panel"><div class="list">${pg.items.map(p=>`<div class="item">
+    <div><div class="t">${esc(p.nome)} <span class="sub">#${esc(p.codigo)}</span></div><div class="s">${fone(p.whatsapp)} · ${p.barcoIds.map(id=>barcos.find(b=>b.id===id)?.nome).filter(Boolean).join(', ')}</div><div class="s">Comissão: ${p.comissaoTipo?regraTxt(regraComissao(null,p)):'a de cada barco'}</div></div>
+    <div><span class="pill ${p.ativo?'p-pago':'p-cancelada'}">${p.ativo?'Ativo':'Suspenso'}</span></div>
+    <div class="a"><button class="btn ghost sm" data-act="editar" data-tipo="promotor" data-id="${p.id}">Editar</button></div></div>`).join('')}</div>${pager(pg)}</section>
+    <button class="btn ghost block" data-act="novo" data-tipo="promotor">+ Cadastrar promotor</button>`;
+}
+async function gConfig(){
+  const c=await api.config();
+  return `<section class="panel"><h2>Link para o turista</h2>
+    <form id="fCfg" class="list" style="gap:10px" novalidate>
+      <label class="f">Endereço público do sistema<input id="cUrl" type="url" placeholder="https://marlagos.netlify.app/" value="${esc(c.urlPublica)}"></label>
+      <p class="sub" style="margin:0">É o endereço que vai no QR e na mensagem do WhatsApp. Coloque aqui o site onde o sistema estiver publicado.</p>
+      <button class="btn pri" type="submit">Salvar</button>
+    </form></section>
+    <section class="panel"><h2>Dados de exemplo</h2>
+      <p class="sub" style="margin:0">Os dados ficam salvos neste aparelho até o banco de dados ser ligado. Recomeçar apaga tudo e recarrega o exemplo.</p>
+      ${ui.confirmReset?`<div class="err-banner">Apagar todas as vendas e cadastros deste aparelho?</div><div class="row"><button class="btn hot grow" data-act="resetOk">Sim, apagar</button><button class="btn ghost grow" data-act="resetNo">Não</button></div>`
+      :`<button class="btn ghost" data-act="reset">Recomeçar com dados de exemplo</button>`}
+    </section>`;
+}
+
+/* =========================================================
+   RENDER E EVENTOS
+   ========================================================= */
+const VIEWS={vender:vVender,cracha:vCracha,turista:vTurista,cais:vCais,manifesto:vManifesto,gestao:vGestao};
+const CTX={vender:'Venda na orla',cracha:'Credencial do promotor',turista:'Sua reserva',cais:'Embarque no cais',manifesto:'Capitania dos Portos',gestao:'Dono da embarcação'};
+async function render(){
+  $('#app').innerHTML=await VIEWS[ui.view]();
+  $('#ctx').textContent=CTX[ui.view]+' · Arraial do Cabo';
+  const navOn=ui.view==='cracha'?'vender':ui.view;
+  document.querySelectorAll('#nav [data-go]').forEach(b=>{ if(b.dataset.go===navOn) b.setAttribute('aria-current','page'); else b.removeAttribute('aria-current'); });
+  $('#nav').hidden=ui.view==='turista';
+  $('#demobar').innerHTML=ui.view==='turista'?`<div class="demo-bar no-print"><span>Tela que o turista vê ao abrir o link</span><button data-act="sairTurista">Voltar ao painel</button></div>`:'';
+  $('#upd').textContent='às '+new Date(ui.atualizadoEm).toTimeString().slice(0,8);
+  drawQRs(); tick();
+  if(ui.view==='cais'&&ui.camOn&&scan.video){ const c=$('#cam'); if(c){ c.prepend(scan.video); scan.video.play().catch(()=>{}); } }
+}
+function tick(){
+  document.querySelectorAll('[data-countdown]').forEach(el=>{
+    const ms=+el.dataset.countdown-Date.now();
+    if(ms<=0){ el.textContent='00:00'; if(!tick.busy){tick.busy=true;setTimeout(()=>{tick.busy=false;atualizar(true);},500);} return; }
+    const s=Math.floor(ms/1000); el.textContent=String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0');
+  });
+}
+setInterval(tick,1000);
+async function atualizar(silencioso){
+  // relê os dados da fonte (hoje: o aparelho; depois: o banco) e redesenha
+  mem=null; load(); persist(); ui.atualizadoEm=Date.now(); await render();
+  if(!silencioso) toast('Atualizado às '+new Date().toTimeString().slice(0,8));
+}
+function go(view){ if(view!=='cais') fecharCamera(); ui.view=view; ui.edit=null; ui.confirmReset=false; if(location.hash) history.replaceState(null,'',location.pathname+location.search); render(); window.scrollTo(0,0); }
+
+document.addEventListener('click',async e=>{
+  const g=e.target.closest('[data-go]');
+  if(g){ if(g.dataset.saida) ui.manSaida=g.dataset.saida; return go(g.dataset.go); }
+  const a=e.target.closest('[data-act]'); if(!a) return;
+  const act=a.dataset.act, c=a.dataset.c;
+  switch(act){
+    case 'atualizar': return atualizar();
+    case 'camera': return ui.camOn?(fecharCamera(),render()):abrirCamera();
+    case 'pg': pages[a.dataset.k]=(pages[a.dataset.k]||0)+(+a.dataset.d); return render();
+    case 'barco': ui.barcoId=a.dataset.id; ui.saidaId=null; ui.assentos=[]; ui.preco=null; ui.err=''; return render();
+    case 'saida': ui.saidaId=a.dataset.id; ui.assentos=[]; ui.err=''; return render();
+    case 'seat': { const n=+a.dataset.n; ui.assentos=ui.assentos.includes(n)?ui.assentos.filter(x=>x!==n):[...ui.assentos,n]; if(!ui.assentos.length) ui.qtd=1; ui.err=''; return render(); }
+    case 'qtd': ui.assentos=[]; ui.qtd=Math.max(1,Math.min(99,ui.qtd+(+a.dataset.d))); return render();
+    case 'gerar':
+      try{ const r=await api.criarReserva({saidaId:ui.saidaId,promotorId:ui.promotorId,qtd:ui.qtd,assentos:ui.assentos,valorUnit:ui.preco}); ui.ultima=r.codigo; ui.err=''; ui.zap=''; ui.assentos=[]; ui.preco=null; }
+      catch(err){ ui.err=err.message; }
+      render(); return window.scrollTo(0,0);
+    case 'mostrarQR': ui.ultima=c; ui.zap=''; render(); return window.scrollTo(0,0);
+    case 'novaVenda': ui.ultima=null; ui.saidaId=null; ui.zap=''; ui.qtd=2; ui.assentos=[]; ui.preco=null; return render();
+    case 'copiarLink': return copiar(ui.msg,'Mensagem copiada');
+    case 'abrirTurista': ui.turista=c; ui.turErr=''; ui.voltar=ui.view; ui.view='turista'; history.replaceState(null,'','#r-'+c); render(); return window.scrollTo(0,0);
+    case 'sairTurista': return go(ui.voltar||'vender');
+    case 'copiarPix': return copiar($('#pixtxt').textContent,'Código Pix copiado. Cole no app do banco.');
+    case 'informarPix': {
+      const r=await api.reserva(ui.turista);
+      try{ await api.informarPagamento(ui.turista,lerPax(r.qtd),$('#tz').value.replace(/\D/g,'')); ui.turErr=''; }catch(err){ ui.turErr=err.message; }
+      render(); return window.scrollTo(0,0);
+    }
+    case 'salvarPax': {
+      const r=await api.reserva(ui.turista);
+      try{ await api.salvarPassageiros(ui.turista,lerPax(r.qtd),$('#tz').value.replace(/\D/g,'')); ui.turErr=''; }catch(err){ ui.turErr=err.message; }
+      return render();
+    }
+    case 'baixarVoucher': return baixarVoucher(c);
+    case 'confirmar':
+      try{ const extra=await api.confirmarPagamento(c); toast(`${c} pago · voucher liberado${extra}`); }catch(err){ toast(err.message); }
+      return render();
+    case 'cancelar': await api.cancelar(c); toast(`${c} cancelada · lugares liberados`); return render();
+    case 'cracha': return go('cracha');
+    case 'caisSaida': ui.caisSaida=a.dataset.id; ui.caisMsg=null; pages.cais=0; return render();
+    case 'caisAbrir': ui.caisCodigo=c; return validarCais();
+    case 'emb': await api.embarcar(c,+a.dataset.i,a.checked); ui.caisMsg.r=await api.reserva(c); return render();
+    case 'embTodos': await api.embarcar(c,'all'); ui.caisMsg.r=await api.reserva(c); toast('Embarque confirmado no manifesto'); return render();
+    case 'manSaida': ui.manSaida=a.dataset.id; pages.man=0; return render();
+    case 'copiarMan': {
+      const s=(await api.saidas(hoje())).find(x=>x.id===ui.manSaida); const l=await linhasManifesto(s.id);
+      const txt=`MANIFESTO DE PASSAGEIROS\nEmbarcação: ${s.barco.nome} · Inscrição ${s.barco.inscricao}\nMestre: ${s.barco.mestre}\nSaída: ${dataBR(s.data)} ${s.hora} · ${s.barco.cais}\n\n`+
+        l.map(p=>`Assento ${p.assento??'-'} · ${p.nome} · ${p.doc} · ${p.embarcado?'EMBARCADO':'A EMBARCAR'}`).join('\n')+`\n\nTotal: ${l.length} de ${s.capacidade} lugares · ${l.filter(p=>p.embarcado).length} embarcados`;
+      return copiar(txt,'Manifesto copiado');
+    }
+    case 'imprimir': return window.print();
+    case 'copiarFech': return copiar(await textoFechamento(),'Fechamento copiado');
+    case 'gtab': ui.gTab=a.dataset.t; ui.edit=null; ui.confirmReset=false; return render();
+    case 'novo': ui.edit={tipo:a.dataset.tipo,obj:null}; return render();
+    case 'editar': { const lst=a.dataset.tipo==='barco'?await api.barcos():await api.promotores(); ui.edit={tipo:a.dataset.tipo,obj:lst.find(x=>x.id===a.dataset.id)}; return render(); }
+    case 'fecharEdit': ui.edit=null; return render();
+    case 'toggleSaida': await api.salvarSaida({id:a.dataset.id,status:a.dataset.st==='aberta'?'encerrada':'aberta'}); return render();
+    case 'reset': ui.confirmReset=true; return render();
+    case 'resetNo': ui.confirmReset=false; return render();
+    case 'resetOk': await api.resetar(); ui.confirmReset=false; ui.ultima=null; toast('Dados de exemplo recarregados'); return render();
+  }
+});
+document.addEventListener('change',async e=>{
+  const a=e.target.closest('[data-act]'); if(!a) return;
+  if(a.dataset.act==='prom'){ ui.promotorId=a.value; ui.barcoId=null; ui.saidaId=null; ui.ultima=null; render(); }
+  if(a.dataset.act==='gBarco'){ ui.gBarco=a.value; render(); }
+  if(a.dataset.act==='gData'){ ui.gData=a.value||hoje(); if(ui.gData>=hoje()){ gerarSaidas(load(),ui.gData); persist(); } render(); }
+});
+document.addEventListener('input',e=>{
+  if(e.target.id==='zap'){
+    ui.zap=e.target.value.replace(/\D/g,'').slice(0,11); e.target.value=fone(ui.zap);
+    const b=$('#zapBtn'); const ok=ui.zap.length>=10;
+    b.href=ok?`https://wa.me/55${ui.zap}?text=${encodeURIComponent(ui.msg)}`:'#';
+    b.style.opacity=ok?'':'.45'; b.style.pointerEvents=ok?'':'none'; ok?b.removeAttribute('aria-disabled'):b.setAttribute('aria-disabled','true');
+  }
+  if(e.target.id==='preco') atualizaPreco(e.target.value);
+  if(e.target.id==='tz'){ const d=e.target.value.replace(/\D/g,'').slice(0,11); e.target.value=fone(d); }
+  if(e.target.id==='caisCod') ui.caisCodigo=e.target.value;
+  if(e.target.id==='autoEmb') ui.autoEmb=e.target.checked;
+});
+async function atualizaPreco(v){
+  const prom=(await api.promotores()).find(p=>p.id===ui.promotorId), b=(await api.barcos()).find(x=>x.id===ui.barcoId);
+  const vu=parseFloat(String(v).replace(',','.')); ui.preco=isNaN(vu)?null:vu;
+  const u=ui.preco??b.preco, rg=regraComissao(b,prom);
+  $('#tTotal').innerHTML=money(u*ui.qtd); $('#tCom').innerHTML=money(calcComissao(rg,u,ui.qtd));
+  $('#tDescRow').hidden=!(u<b.preco); $('#tDesc').innerHTML=money(Math.max(0,b.preco-u)*ui.qtd);
+  const info=$('#precoInfo'); const baixo=u<b.precoMin;
+  info.innerHTML=baixo?`<b style="color:var(--danger)">Abaixo do mínimo de R$ ${fmt(b.precoMin)}</b>`:`Tabela R$ ${fmt(b.preco)} · mínimo R$ ${fmt(b.precoMin)}`;
+  document.querySelector('[data-act=gerar]').disabled=baixo;
+}
+async function validarCais(auto){
+  const raw=(ui.caisCodigo||'').trim().toUpperCase(); const mm=raw.match(/AC-\d{4}/); const cod=mm?mm[0]:raw;
+  if(!cod){ ui.caisMsg={erro:'Digite ou leia o código do voucher.'}; return render(); }
+  const r=await api.reserva(cod);
+  if(!r) ui.caisMsg={erro:`Voucher ${cod} não encontrado.`};
+  else if(r.status!=='pago') ui.caisMsg={r,ok:false,aviso:`Pagamento não confirmado (${STATUS[r.status]}). Não embarcar sem confirmação.`};
+  else if(r.saida.data!==hoje()) ui.caisMsg={r,ok:false,aviso:`Este voucher é para ${dataBR(r.saida.data)}.`};
+  else if(r.saidaId!==ui.caisSaida) ui.caisMsg={r,ok:false,aviso:`Atenção: voucher do ${r.barco.nome} às ${r.saida.hora}, não desta saída.`};
+  else ui.caisMsg={r,ok:true};
+  if(auto&&ui.caisMsg.ok&&ui.autoEmb&&r.passageiros.length){
+    const n=r.passageiros.filter(p=>!p.embarcado).length;
+    if(n){ await api.embarcar(r.codigo,'all'); ui.caisMsg={r:await api.reserva(r.codigo),ok:true,auto:n}; }
+    else ui.caisMsg={r,ok:false,aviso:'Este voucher já embarcou. Leitura repetida.'};
+  } else if(auto&&ui.caisMsg.ok&&!r.passageiros.length) ui.caisMsg={r,ok:false,aviso:'Pago, mas sem passageiros cadastrados. Peça para preencher no link.'};
+  await render();
+  return !!ui.caisMsg?.ok;
+}
+document.addEventListener('submit',async e=>{
+  e.preventDefault(); const f=e.target;
+  if(f.id==='fCais'){ ui.caisCodigo=$('#caisCod').value; return validarCais(); }
+  if(f.id==='fBarco'){
+    const hor=$('#bHor').value.split(/[;\n]/).map(x=>x.trim()).filter(Boolean).map(x=>{const m=x.match(/^(\d{1,2}):?(\d{2})\s*(.*)$/);return m?[m[1].padStart(2,'0')+':'+m[2],m[3]||'']:null;}).filter(Boolean);
+    const b={...(ui.edit.obj||{}),nome:$('#bNome').value.trim(),inscricao:$('#bInsc').value.trim(),mestre:$('#bMestre').value.trim(),cais:$('#bCais').value.trim(),
+      capacidade:+$('#bCap').value||1,preco:+$('#bPreco').value||0,precoMin:Math.min(+$('#bPMin').value||+$('#bPreco').value||0,+$('#bPreco').value||0),comissaoTipo:$('#bCTipo').value,comissaoValor:+$('#bCVal').value||0,horarios:hor,
+      tempoPag:+$('#bTP').value||REGRAS_PADRAO.tempoPag,tempoConf:+$('#bTC').value||REGRAS_PADRAO.tempoConf,corteMin:+$('#bCorte').value||0,
+      pixChave:$('#bPix').value.trim(),pixNome:$('#bPixN').value.trim(),pixCidade:$('#bPixC').value.trim(),ativo:$('#bAtivo').checked};
+    if(!b.nome||!b.pixChave){ toast('Preencha nome e chave Pix'); return; }
+    await api.salvarBarco(b); ui.edit=null; toast('Barco salvo'); return render();
+  }
+  if(f.id==='fProm'){
+    const p={...(ui.edit.obj||{}),nome:$('#pNome').value.trim(),codigo:$('#pCod').value.trim(),whatsapp:$('#pZap').value.replace(/\D/g,''),pixChave:$('#pPix').value.trim(),comissaoTipo:$('#pCTipo').value,comissaoValor:+$('#pCVal').value||0,
+      barcoIds:[...document.querySelectorAll('.pBarco:checked')].map(x=>x.value),ativo:$('#pAtivo').checked};
+    if(!p.nome||!p.barcoIds.length){ toast('Preencha o nome e marque ao menos um barco'); return; }
+    await api.salvarPromotor(p); ui.edit=null; toast('Promotor salvo'); return render();
+  }
+  if(f.id==='fSaida'){
+    const m=$('#sHora').value.trim().match(/^(\d{1,2}):?(\d{2})$/); if(!m){ toast('Horário no formato 17:30'); return; }
+    await api.salvarSaida({barcoId:$('#sBarco').value,data:ui.gData,hora:m[1].padStart(2,'0')+':'+m[2],rotulo:$('#sRot').value.trim(),capacidade:+$('#sCap').value||1});
+    ui.edit=null; toast('Saída criada'); return render();
+  }
+  if(f.id==='fCfg'){ await api.salvarConfig({urlPublica:$('#cUrl').value.trim()}); toast('Endereço salvo'); return render(); }
+});
+
+/* =========================================================
+   LEITOR DE QR PELA CÂMERA
+   Usa o leitor nativo do celular (BarcodeDetector) quando existe;
+   senão a biblioteca jsQR. Se não houver câmera, fica a digitação.
+   ========================================================= */
+const scan={stream:null,video:null,canvas:null,ctx:null,det:null,busy:false,t:0,raf:0,last:'',lastAt:0,audio:null};
+async function abrirCamera(){
+  ui.camErro='';
+  if(!navigator.mediaDevices?.getUserMedia){ ui.camErro='Este aparelho não liberou a câmera aqui. Use a digitação.'; return render(); }
+  try{ scan.audio=scan.audio||new (window.AudioContext||window.webkitAudioContext)(); }catch(e){}
+  try{ scan.stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:{ideal:'environment'},width:{ideal:1280}},audio:false}); }
+  catch(e){ ui.camErro=e.name==='NotAllowedError'?'Permissão da câmera negada. Libere nas configurações do navegador ou use a digitação.':'Câmera indisponível neste aparelho. Use a digitação.'; return render(); }
+  scan.video=document.createElement('video'); scan.video.setAttribute('playsinline',''); scan.video.muted=true; scan.video.srcObject=scan.stream;
+  scan.det=null;
+  if('BarcodeDetector' in window){ try{ const f=await BarcodeDetector.getSupportedFormats(); if(f.includes('qr_code')) scan.det=new BarcodeDetector({formats:['qr_code']}); }catch(e){} }
+  if(!scan.det&&!window.jsQR){ fecharCamera(); ui.camErro='Leitor de QR não carregou (sem internet?). Use a digitação.'; return render(); }
+  scan.canvas=scan.canvas||document.createElement('canvas'); scan.ctx=scan.canvas.getContext('2d',{willReadFrequently:true});
+  ui.camOn=true; await render(); loopScan();
+}
+function fecharCamera(){
+  cancelAnimationFrame(scan.raf); ui.camOn=false;
+  if(scan.stream){ scan.stream.getTracks().forEach(t=>t.stop()); scan.stream=null; }
+  if(scan.video){ scan.video.remove(); scan.video=null; }
+}
+function loopScan(){
+  if(!ui.camOn) return;
+  scan.raf=requestAnimationFrame(loopScan);
+  const now=performance.now(), v=scan.video;
+  if(scan.busy||now-scan.t<200||!v||v.readyState<2) return;
+  scan.t=now; scan.busy=true;
+  lerQuadro(v).then(txt=>txt?qrLido(txt):null).catch(()=>{}).finally(()=>{scan.busy=false;});
+}
+async function lerQuadro(v){
+  if(scan.det){ const r=await scan.det.detect(v); return r[0]?.rawValue||null; }
+  const k=Math.min(1,720/v.videoWidth), w=Math.round(v.videoWidth*k), h=Math.round(v.videoHeight*k);
+  scan.canvas.width=w; scan.canvas.height=h; scan.ctx.drawImage(v,0,0,w,h);
+  const img=scan.ctx.getImageData(0,0,w,h); const r=jsQR(img.data,w,h,{inversionAttempts:'dontInvert'});
+  return r?.data||null;
+}
+function bip(ok){
+  try{ navigator.vibrate?.(ok?80:[60,60,60]); }catch(e){}
+  try{ const a=scan.audio; if(!a) return; const o=a.createOscillator(), g=a.createGain(); o.frequency.value=ok?1320:330; g.gain.value=.15; o.connect(g); g.connect(a.destination); o.start(); o.stop(a.currentTime+(ok?.12:.35)); }catch(e){}
+}
+async function qrLido(txt){
+  const m=String(txt).toUpperCase().match(/AC-\d{4}/); const cod=m?m[0]:String(txt).trim();
+  if(cod===scan.last&&Date.now()-scan.lastAt<4000) return;
+  scan.last=cod; scan.lastAt=Date.now();
+  ui.caisCodigo=cod;
+  const ok=await validarCais(true);
+  bip(ok);
+  const fb=$('#camfb'); if(fb){ fb.hidden=false; fb.className='fb '+(ok?'ok':'err'); fb.textContent=ok?`✓ ${cod} · ${ui.caisMsg.auto?ui.caisMsg.auto+' a bordo':'válido'}`:`✕ ${cod} · ${ui.caisMsg?.aviso||ui.caisMsg?.erro||'inválido'}`; }
+}
+document.addEventListener('visibilitychange',()=>{ if(document.hidden&&ui.camOn){ fecharCamera(); render(); } });
+
+function rota(){
+  const h=location.hash.slice(1);
+  if(h.startsWith('r-')){ ui.turista=h.slice(2); ui.view='turista'; }
+  render();
+}
+window.addEventListener('hashchange',rota);
+load(); persist(); rota();
+</script>
