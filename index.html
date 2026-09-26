@@ -1,6 +1,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#ffffff">
+<meta name="format-detection" content="telephone=no">
 <link rel="manifest" href="manifest.json">
 <link rel="apple-touch-icon" href="icon-192.png">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -63,7 +64,7 @@ h2{font-family:var(--display);font-weight:700;font-size:16px;margin:0;letter-spa
 .row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
 .between{justify-content:space-between}
 .grow{flex:1;min-width:0}
-label.f{display:flex;flex-direction:column;gap:6px;font-size:13px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--ink2)}
+label.f,div.f{display:flex;flex-direction:column;gap:6px;font-size:12.5px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--ink2)}
 input[type=text],input[type=tel],input[type=number],input[type=url],input[type=date],select{width:100%;background:#fff;border:1px solid var(--field);border-radius:9px;padding:11px 12px;font-size:16px;text-transform:none;letter-spacing:0;font-weight:500}
 input:focus,select:focus{border-color:var(--sea);outline:none;box-shadow:0 0 0 3px rgba(35,69,156,.15)}
 .btn{border:0;border-radius:12px;padding:15px 18px;min-height:52px;font-weight:700;font-size:17px;display:inline-flex;align-items:center;justify-content:center;gap:8px;text-decoration:none}
@@ -143,9 +144,9 @@ td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}
 .err-banner{background:var(--danger-soft);color:var(--danger);border-radius:12px;padding:12px 14px;font-weight:600}
 .badge{background:linear-gradient(160deg,#23459c 0%,#16306f 100%);color:var(--navy-ink);border-radius:18px;padding:22px 18px;display:flex;flex-direction:column;align-items:center;gap:10px;text-align:center}
 .avatar{width:84px;height:84px;border-radius:50%;background:#fff;color:var(--sea)!important;color:#fff;font-family:var(--display);font-size:38px;font-weight:700;display:grid;place-items:center;border:3px solid rgba(255,255,255,.8)}
-.tabs{display:flex;gap:6px;overflow-x:auto;padding-bottom:2px}
-.tabs button{flex:none;border:0;background:none;padding:12px 12px;border-bottom:3px solid transparent;font-weight:700;color:var(--ink3);font-size:16px}
-.tabs button[aria-selected=true]{color:var(--sea);border-color:var(--sea)}
+.tabs{display:flex;flex-wrap:wrap;gap:8px}
+.tabs button{flex:1 1 auto;border:1px solid var(--line);background:#fff;padding:10px 14px;min-height:44px;border-radius:999px;font-weight:700;color:#374151;font-size:15px}
+.tabs button[aria-selected=true]{color:#fff;background:var(--sea);border-color:var(--sea)}
 .man-head{border:2px solid var(--ink);border-radius:8px;padding:12px;display:flex;flex-direction:column;gap:4px;font-size:15px}
 .man-head .ti{font-family:var(--display);font-size:19px;font-weight:800;color:var(--title);letter-spacing:.04em;text-transform:uppercase}
 .toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:10px;font-weight:600;font-size:15.5px;z-index:20;max-width:calc(100% - 32px)}
@@ -153,12 +154,12 @@ td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}
 .demo-bar button{background:none;border:0;color:inherit;font-weight:800;text-decoration:underline}
 .ex{font-size:11.5px;font-weight:700;letter-spacing:.06em;color:var(--ink3);border:1px solid var(--line);border-radius:4px;padding:1px 5px;text-transform:uppercase}
 .boat{display:flex;justify-content:center}
-.hull{width:min(100%,340px);background:var(--deck);border:3px solid var(--hull);border-radius:50% 50% 26px 26px / 120px 120px 26px 26px;padding:70px 16px 12px;display:flex;flex-direction:column;gap:6px;background-image:repeating-linear-gradient(90deg,transparent 0 22px,var(--deck-line) 22px 23px)}
+.hull{width:min(100%,264px);background:var(--deck);border:3px solid var(--hull);border-radius:50% 50% 26px 26px / 120px 120px 26px 26px;padding:70px 16px 12px;display:flex;flex-direction:column;gap:6px;background-image:repeating-linear-gradient(90deg,transparent 0 22px,var(--deck-line) 22px 23px)}
 .bow,.stern{font-size:12px;font-weight:800;letter-spacing:.14em;color:var(--hull);text-align:center}
 .bow{margin-top:-40px;margin-bottom:14px}
 .stern{margin-top:6px;border-top:2px solid var(--hull);padding-top:6px}
-.srow{display:grid;grid-template-columns:1fr 1fr 18px 1fr 1fr;gap:7px}
-.seat{aspect-ratio:1;border-radius:10px 10px 5px 5px;font-size:14px;font-weight:800;display:grid;place-items:center;border:1.5px solid transparent;padding:0;font-variant-numeric:tabular-nums}
+.srow{display:grid;grid-template-columns:1fr 1fr 14px 1fr 1fr;gap:6px}
+.seat{aspect-ratio:1;border-radius:9px 9px 4px 4px;font-size:13px;font-weight:800;display:grid;place-items:center;border:1.5px solid transparent;padding:0;font-variant-numeric:tabular-nums}
 .s-free{background:#fff;border-color:var(--field);color:var(--label)}
 .s-sel{background:var(--sea);color:#fff;border-color:var(--sea)}
 .s-res{background:repeating-linear-gradient(45deg,var(--warn-soft) 0 5px,var(--surface) 5px 10px);border-color:var(--warn);color:var(--warn)}
@@ -174,11 +175,11 @@ td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}
 details.more summary{cursor:pointer;font-weight:600;color:var(--sea);font-size:15px;padding:8px 0}
 .rules{display:grid;grid-template-columns:auto 1fr;gap:8px 12px;font-size:15px}
 .rules b{font-family:var(--display);font-size:18px;text-align:right;font-variant-numeric:tabular-nums}
-tfoot td{font-weight:800;border-top:2px solid var(--line);border-bottom:0}
+tfoot td{font-weight:800;background:var(--surface2);border-top:2px solid var(--line);border-bottom:0}
 .stat.hi{background:var(--sea-soft);border-color:var(--sea)}
 .lay2,.lay-venda{display:flex;flex-direction:column;gap:14px}
 .lay2>*,.lay-venda>*{min-width:0}
-.cam{position:relative;background:#000;border-radius:12px;overflow:hidden;aspect-ratio:4/3;display:grid;place-items:center;color:#9FB3BB;font-size:13px;text-align:center}
+.cam{position:relative;background:#0f172a;border-radius:12px;overflow:hidden;aspect-ratio:4/3;max-height:52vh;width:100%;display:grid;place-items:center;color:#9FB3BB;font-size:13px;text-align:center}
 .cam video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .cam .frame{position:absolute;inset:18% 22%;border:3px solid rgba(255,255,255,.85);border-radius:14px;box-shadow:0 0 0 999px rgba(0,0,0,.35)}
 .cam .fb{position:absolute;left:10px;right:10px;bottom:10px;padding:12px;border-radius:10px;font-weight:800;font-size:17px}
@@ -198,13 +199,48 @@ tfoot td{font-weight:800;border-top:2px solid var(--line);border-bottom:0}
   .lay-venda{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);grid-template-areas:"hor seat" "pass seat" "list list";gap:16px;align-items:start}
   .lay-venda.solo{grid-template-areas:"hor hor" "list list"}
   .a-hor{grid-area:hor}.a-seat{grid-area:seat}.a-pass{grid-area:pass}.a-list{grid-area:list}
-  .hull{width:min(100%,330px)}
+  .hull{width:min(100%,300px)}
   .panel{padding:18px}
 }
 @media (min-width:1024px){
   .stats.six{grid-template-columns:repeat(6,1fr)}
   .stat .v{font-size:21px}
 }
+/* ---- organização de campos e botões ---- */
+.fg{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(0,1fr);gap:12px;align-items:end}
+.fsec{font-size:13px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--title);padding-top:10px;margin-top:4px;border-top:1px solid var(--line2)}
+.acts{display:grid;grid-template-columns:1fr;gap:10px}
+.acts.two{grid-template-columns:1fr 1fr}
+.acts .btn{width:100%}
+.item .a{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.item .a>:first-child,.item .a>:last-child:nth-child(even){grid-column:1/-1}
+.item .a .btn{width:100%}
+.stepper{width:100%;justify-content:space-between}
+.stepper output{flex:1}
+input.big{height:56px;font-size:20px!important;font-weight:700;text-align:right}
+.total{flex-wrap:wrap;gap:4px 10px}
+.total .k{white-space:nowrap}
+.total .m,.ok-banner .m,.stat .m{min-width:0;gap:.3em}
+.legend i.s-free{border-color:var(--field)}.legend i.s-res{border-color:var(--warn)}
+details.more>summary{list-style:none;border:1px solid var(--line);border-radius:10px;padding:12px 14px;text-align:center;background:#fff}
+details.more>summary::-webkit-details-marker{display:none}
+details.more[open]>summary{margin-bottom:12px}
+@media (max-width:600px){
+  .tw{overflow:visible}
+  table.stack thead{display:none}
+  table.stack,table.stack tbody,table.stack tfoot{display:block}
+  table.stack tr{display:grid;grid-template-columns:1fr 1fr;gap:8px 14px;padding:12px 2px;border-bottom:1px solid var(--line)}
+  table.stack td{border:0;padding:0;display:flex;flex-direction:column;align-items:flex-start;gap:2px;text-align:left!important;background:none}
+  table.stack.c3 tr{grid-template-columns:repeat(3,minmax(0,1fr))}
+  table.stack td::before{content:attr(data-label);font-size:11.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--ink3)}
+  table.stack td.first{grid-column:1/-1;order:-1;font-weight:700;font-size:16px;color:var(--title)}
+  table.stack td.first::before{display:none}
+  table.stack td[colspan]{grid-column:1/-1}
+  table.stack td[colspan]::before{display:none}
+  table.stack tfoot tr{background:var(--surface2);border-radius:10px;padding:12px;border:0;margin-top:8px}
+  table.stack .m{min-width:0;justify-content:flex-start}
+}
+@media (min-width:600px){ .acts{grid-template-columns:1fr 1fr} }
 @media (max-width:380px){.slot .h{font-size:28px}.stat .v{font-size:22px}.brand{font-size:24px}}
 @media (prefers-reduced-motion: reduce){*{transition:none!important;animation:none!important}}
 @media print{
@@ -469,6 +505,19 @@ const countdown = ts => `<span data-countdown="${ts}">--:--</span>`;
 const pages = {};
 function paginate(key,arr,size){const n=Math.max(1,Math.ceil(arr.length/size));const p=Math.min(pages[key]||0,n-1);pages[key]=p;return {items:arr.slice(p*size,p*size+size),p,n,key,off:p*size};}
 const pager = pg => pg.n<=1?'':`<div class="pager"><button data-act="pg" data-k="${pg.key}" data-d="-1" ${pg.p===0?'disabled':''} aria-label="Página anterior">‹</button><span>${pg.p+1} / ${pg.n}</span><button data-act="pg" data-k="${pg.key}" data-d="1" ${pg.p>=pg.n-1?'disabled':''} aria-label="Próxima página">›</button></div>`;
+/* Abre o WhatsApp de verdade (app), nunca o SMS.
+   No celular usa o endereço do próprio app (whatsapp://); se o app não abrir em 1,5 s, cai no WhatsApp Web. */
+function abrirWhatsApp(numero,texto){
+  let n=String(numero||'').replace(/\D/g,''); if(n&&!n.startsWith('55')) n='55'+n;
+  const q=(n?`phone=${n}&`:'')+'text='+encodeURIComponent(texto||'');
+  const app='whatsapp://send?'+q, web='https://api.whatsapp.com/send?'+q;
+  const celular=/Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+  if(!celular){ const w=window.open(web,'_blank','noopener'); if(!w) location.href=web; return; }
+  let saiu=false; const marca=()=>{saiu=true;};
+  document.addEventListener('visibilitychange',marca,{once:true}); window.addEventListener('pagehide',marca,{once:true});
+  location.href=app;
+  setTimeout(()=>{ if(!saiu&&!document.hidden){ const w=window.open(web,'_blank','noopener'); if(!w) location.href=web; } },1500);
+}
 function toast(msg){const t=document.createElement('div');t.className='toast';t.textContent=msg;document.body.appendChild(t);setTimeout(()=>t.remove(),Math.max(2400,msg.length*55));}
 async function copiar(txt,okMsg){try{await navigator.clipboard.writeText(txt);toast(okMsg||'Copiado');}catch(e){toast('Não deu para copiar. Selecione o texto e copie.');}}
 function linkPublico(cfg,codigo){const base=(cfg.urlPublica||'').trim()||(location.origin+location.pathname);return base.replace(/#.*$/,'')+'#r-'+codigo;}
@@ -575,7 +624,7 @@ async function vVender(){
           <button class="btn pri sm" data-act="confirmar" data-c="${r.codigo}">Confirmar Pix recebido</button>
           <button class="btn ghost sm" data-act="mostrarQR" data-c="${r.codigo}">Mostrar QR</button>
           <button class="btn ghost sm" data-act="cancelar" data-c="${r.codigo}">Cancelar</button></div>`:''}
-        ${r.status==='expirada'&&!r.confirmadoForaDoPrazo?`<div class="a"><button class="btn ghost sm" data-act="confirmar" data-c="${r.codigo}">Pix chegou atrasado? Confirmar se houver lugar</button></div>`:''}
+        ${r.status==='expirada'&&!r.confirmadoForaDoPrazo?`<div class="a"><button class="btn ghost sm" data-act="confirmar" data-c="${r.codigo}">Pix atrasado: confirmar se houver lugar</button></div>`:''}
       </div>`;}).join('')||'<p class="sub">Nenhuma venda ainda hoje.</p>'}</div>
     ${pager(pg)}
   </section>`;
@@ -608,8 +657,8 @@ async function vVender(){
       </div>
       <div class="or">ou</div>
       <label class="f">Mandar pelo WhatsApp<input id="zap" type="tel" inputmode="numeric" placeholder="(21) 99999-9999" value="${esc(fone(ui.zap))}"></label>
-      <a id="zapBtn" class="btn hot block" href="${ui.zap.length>=10?`https://wa.me/55${ui.zap}?text=${encodeURIComponent(msg)}`:'#'}" target="_blank" rel="noopener" ${ui.zap.length>=10?'':'aria-disabled="true" style="opacity:.45;pointer-events:none"'}>Enviar link no WhatsApp</a>
-      <div class="row"><button class="btn ghost sm grow" data-act="copiarLink">Copiar mensagem</button><button class="btn ghost sm grow" data-act="abrirTurista" data-c="${r.codigo}">Ver tela do turista</button></div>`:''}
+      <button id="zapBtn" class="btn hot block" data-act="zapEnviar" ${ui.zap.length>=10?'':'disabled'}>Enviar link no WhatsApp</button>
+      <div class="acts two"><button class="btn ghost sm" data-act="copiarLink">Copiar mensagem</button><button class="btn ghost sm" data-act="abrirTurista" data-c="${r.codigo}">Ver tela do turista</button></div>`:''}
       ${pend?`<button class="btn pri block" data-act="confirmar" data-c="${r.codigo}">Confirmar Pix recebido</button>`:''}
       <button class="btn ghost block" data-act="novaVenda">+ Nova venda</button>
     </section>`+lista+`</div>`;
@@ -655,9 +704,9 @@ async function vVender(){
 
   <section class="panel a-pass">
     <h2>3 · Passagens e valor</h2>
-    <div class="row between">
-      <div class="stepper"><button data-act="qtd" data-d="-1" aria-label="Menos">−</button><output>${ui.qtd}</output><button data-act="qtd" data-d="1" aria-label="Mais" ${ui.qtd>=livres?'disabled':''}>+</button></div>
-      <label class="f" style="width:9.5em">Valor por pessoa (R$)<input id="preco" type="number" inputmode="decimal" step="0.01" min="${barco.precoMin}" value="${vu}" ${barco.precoMin>=barco.preco?'readonly':''}></label>
+    <div class="fg">
+      <div class="f">Passagens<div class="stepper"><button data-act="qtd" data-d="-1" aria-label="Menos">−</button><output>${ui.qtd}</output><button data-act="qtd" data-d="1" aria-label="Mais" ${ui.qtd>=livres?'disabled':''}>+</button></div></div>
+      <label class="f">Valor por pessoa (R$)<input id="preco" class="big" type="number" inputmode="decimal" step="0.01" min="${barco.precoMin}" value="${vu}" ${barco.precoMin>=barco.preco?'readonly':''}></label>
     </div>
     <p class="sub" style="margin:0" id="precoInfo">${barco.precoMin>=barco.preco?`Preço fixo deste barco.`:`Tabela R$ ${fmt(barco.preco)} · mínimo R$ ${fmt(barco.precoMin)}`}</p>
     <div class="total"><span class="k">Total (${ui.qtd} passagens)</span><b id="tTotal">${money(vu*ui.qtd)}</b></div>
@@ -721,7 +770,7 @@ async function vTurista(){
   if(r.status==='pago'){
     const faltaPax=r.passageiros.length<r.qtd;
     const link=linkPublico(cfg,r.codigo);
-    const zapTxt=encodeURIComponent(`Meu voucher do passeio ${r.barco.nome} · ${dataBR(r.saida.data)} ${r.saida.hora} · código ${r.codigo}\n${link}`);
+    ui.zapVoucher={num:r.whatsapp,txt:`Meu voucher do passeio ${r.barco.nome} · ${dataBR(r.saida.data)} ${r.saida.hora} · código ${r.codigo}\n${link}`};
     return `
     <div class="ok-banner" style="font-size:17px">✓ Pagamento confirmado! ${money(r.valor)}</div>`+cab+
     (faltaPax?`<section class="panel"><h2>Falta cadastrar os passageiros</h2><p class="sub" style="margin:0">A Capitania exige nome e documento de todos a bordo.</p>${formPax(r,false)}
@@ -737,7 +786,7 @@ async function vTurista(){
       </div>
     </div>
     <div class="list" style="gap:12px"><button class="btn hot block" data-act="baixarVoucher" data-c="${r.codigo}">Baixar voucher (imagem)</button>
-    <a class="btn ghost block" href="https://wa.me/${r.whatsapp?'55'+r.whatsapp:''}?text=${zapTxt}" target="_blank" rel="noopener">Guardar no meu WhatsApp</a>
+    <button class="btn ghost block" data-act="zapGuardar" data-c="${r.codigo}">Guardar no meu WhatsApp</button>
     <p class="note">Chegue ao cais 20 minutos antes da saída e mostre o QR ao marinheiro. A imagem abre mesmo sem internet. Seus dados já estão na lista oficial da Capitania dos Portos.</p></div></div>`);
   }
 
@@ -786,7 +835,7 @@ async function vCais(){
   } else if(m?.erro) card=`<div class="err-banner">${esc(m.erro)}</div>`;
   return `
   <section><h1>Check-in no cais</h1><p class="sub">Leia o voucher do turista e confirme quem subiu a bordo.</p></section>
-  <div class="chips">${saidas.map(x=>`<button class="chip" data-act="caisSaida" data-id="${x.id}" aria-pressed="${x.id===ui.caisSaida}">${esc(x.barco.nome.split(' ')[0])} ${x.hora}</button>`).join('')}</div>
+  <label class="f">Saída<select id="selCais" data-act="caisSaida">${saidas.map(x=>`<option value="${x.id}" ${x.id===ui.caisSaida?'selected':''}>${esc(x.barco.nome)} · ${x.hora}</option>`).join('')}</select></label>
   <div class="lay2"><div class="list" style="gap:14px">
   <section class="panel">
     <div class="row between"><h2>Leitor de QR</h2><label class="sw"><input type="checkbox" id="autoEmb" ${ui.autoEmb?'checked':''}>Embarcar ao ler</label></div>
@@ -794,7 +843,7 @@ async function vCais(){
     <button class="btn ${ui.camOn?'ghost':'pri'} block" data-act="camera">${ui.camOn?'Fechar câmera':'Abrir câmera e ler QR'}</button>
     <div class="or">ou digite o código</div>
     <form id="fCais" class="row" novalidate>
-      <input class="grow code" style="width:auto;flex:1" type="text" id="caisCod" placeholder="Código ou leitura do QR" value="${esc(ui.caisCodigo)}" autocomplete="off" autocapitalize="characters">
+      <input class="grow code" style="width:auto;flex:1" type="text" id="caisCod" placeholder="AC-0000" value="${esc(ui.caisCodigo)}" autocomplete="off" autocapitalize="characters">
       <button class="btn pri" type="submit">Validar</button>
     </form>
     <p class="sub" style="margin:0">Se a câmera não ler (sol forte, tela trincada), digite o código do voucher. Leitores de QR por Bluetooth/USB também digitam aqui sozinhos.</p>
@@ -803,7 +852,7 @@ async function vCais(){
   </div>
   ${s?`<section class="panel">
     <div class="row between"><h2>${esc(s.barco.nome)} · ${s.hora}</h2><span class="sub"><b>${emb}</b> / ${tot} a bordo</span></div>
-    ${seatMap(s.capacidade,s.mapa)}
+    <details class="more"><summary>Ver mapa do barco</summary>${seatMap(s.capacidade,s.mapa)}</details>
     <div class="list">${pg.items.map(r=>{const e=r.passageiros.filter(p=>p.embarcado).length;return `
       <div class="item"><div><div class="t code">${r.codigo}</div><div class="s">${esc(r.passageiros[0]?.nome||'sem cadastro')}${r.qtd>1?` + ${r.qtd-1}`:''} · assentos ${r.assentos.join(', ')}</div></div>
       <div><button class="btn ghost sm" data-act="caisAbrir" data-c="${r.codigo}">${e}/${r.qtd} · Abrir</button></div></div>`;}).join('')||'<p class="sub">Todos os passageiros pagos já embarcaram.</p>'}</div>
@@ -824,11 +873,11 @@ async function vManifesto(){
   if(!s) return `<div class="panel"><h1>Sem saídas hoje</h1></div>`;
   const linhas=await linhasManifesto(s.id);
   const emb=linhas.filter(p=>p.embarcado).length;
-  const pg=paginate('man',linhas,10);
+  const pg=paginate('man',linhas,window.innerWidth<600?6:10);
   const podeImprimir=window.self===window.top;
   return `
   <section class="no-print"><h1>Manifesto de embarque</h1><p class="sub">Lista oficial para a fiscalização da Capitania dos Portos.</p></section>
-  <div class="chips no-print">${saidas.map(x=>`<button class="chip" data-act="manSaida" data-id="${x.id}" aria-pressed="${x.id===ui.manSaida}">${esc(x.barco.nome.split(' ')[0])} ${x.hora}</button>`).join('')}</div>
+  <label class="f no-print">Saída<select id="selMan" data-act="manSaida">${saidas.map(x=>`<option value="${x.id}" ${x.id===ui.manSaida?'selected':''}>${esc(x.barco.nome)} · ${x.hora}</option>`).join('')}</select></label>
   <section class="panel">
     <div class="man-head">
       <div class="row between"><span class="k">Marinha do Brasil · Capitania dos Portos</span><span class="k">Manifesto de passageiros</span></div>
@@ -836,16 +885,16 @@ async function vManifesto(){
       <div>Inscrição: <b class="code">${esc(s.barco.inscricao)}</b> · Mestre: <b>${esc(s.barco.mestre)}</b></div>
       <div>Saída: <b>${dataBR(s.data)} às ${s.hora}</b> · ${esc(s.barco.cais)}</div>
     </div>
-    <div class="tw"><table>
+    <div class="tw"><table class="stack">
       <thead><tr><th class="n">Assento</th><th>Passageiro</th><th>Documento (CPF/RG)</th><th>Voucher</th><th>Situação</th></tr></thead>
-      <tbody>${pg.items.map(p=>`<tr><td class="n code">${p.assento??'—'}</td><td>${esc(p.nome)}</td><td class="code" style="font-weight:500">${esc(p.doc)}</td><td class="code" style="font-weight:500">${p.codigo}</td><td><span class="pill ${p.embarcado?'p-emb':'p-nao'}">${p.embarcado?'Embarcado':'A embarcar'}</span></td></tr>`).join('')||'<tr><td colspan="5" class="sub">Nenhum passageiro pago nesta saída.</td></tr>'}</tbody>
+      <tbody>${pg.items.map(p=>`<tr><td class="n code" data-label="Assento">${p.assento??'—'}</td><td class="first">${esc(p.nome)}</td><td class="code" style="font-weight:500" data-label="Documento">${esc(p.doc)}</td><td class="code" style="font-weight:500" data-label="Voucher">${p.codigo}</td><td data-label="Situação"><span class="pill ${p.embarcado?'p-emb':'p-nao'}">${p.embarcado?'Embarcado':'A embarcar'}</span></td></tr>`).join('')||'<tr><td colspan="5" class="sub">Nenhum passageiro pago nesta saída.</td></tr>'}</tbody>
     </table></div>
     ${pager(pg)}
     <div class="stats">
       <div class="stat"><span class="k">Embarcados (pessoas)</span><span class="v">${emb}</span></div>
       <div class="stat"><span class="k">Lotação (pessoas)</span><span class="v">${linhas.length} / ${s.capacidade}</span></div>
     </div>
-    <div class="row no-print">
+    <div class="acts no-print">
       <button class="btn pri grow" data-act="copiarMan">Copiar lista completa</button>
       ${podeImprimir?`<button class="btn ghost grow" data-act="imprimir">Imprimir / PDF</button>`:''}
     </div>
@@ -854,7 +903,7 @@ async function vManifesto(){
 
 /* ---------------- GESTÃO (dono) ---------------- */
 async function vGestao(){
-  const tabs=[['resumo','Fechamento'],['saidas','Saídas'],['barcos','Barcos'],['promotores','Promotores'],['config','Ajustes']];
+  const tabs=[['resumo','Fechamento'],['saidas','Saídas'],['barcos','Barcos'],['promotores','Vendedores'],['config','Ajustes']];
   const head=`<section><h1>Gestão</h1><p class="sub">Área do dono da embarcação.</p></section>
   <div class="tabs" role="tablist">${tabs.map(([k,l])=>`<button role="tab" aria-selected="${ui.gTab===k}" data-act="gtab" data-t="${k}">${l}</button>`).join('')}</div>`;
   return head + await ({resumo:gResumo,saidas:gSaidas,barcos:gBarcos,promotores:gPromotores,config:gConfig}[ui.gTab])();
@@ -882,9 +931,9 @@ async function gResumo(){
   const t=d.tot, podeImprimir=window.self===window.top;
   const pgV=paginate('fv',d.porVend,8), pgS=paginate('fs',d.porSaida,8), pg=paginate('ab',d.pend.sort((a,b)=>a.expiraEm-b.expiraEm),4);
   return `
-  <div class="row no-print">
-    <label class="f grow">Dia<input type="date" id="gData" value="${ui.gData}" data-act="gData"></label>
-    <label class="f grow">Barco<select id="gBarco" data-act="gBarco"><option value="">Todos os barcos</option>${barcos.map(b=>`<option value="${b.id}" ${b.id===ui.gBarco?'selected':''}>${esc(b.nome)}</option>`).join('')}</select></label>
+  <div class="fg no-print">
+    <label class="f">Dia<input type="date" id="gData" value="${ui.gData}" data-act="gData"></label>
+    <label class="f">Barco<select id="gBarco" data-act="gBarco"><option value="">Todos os barcos</option>${barcos.map(b=>`<option value="${b.id}" ${b.id===ui.gBarco?'selected':''}>${esc(b.nome)}</option>`).join('')}</select></label>
   </div>
   <section class="panel">
     <div class="row between"><div><div class="k">Fechamento do dia</div><h1>${dataBR(ui.gData)}</h1></div><span class="sub">${ui.gBarco?esc(barcos.find(b=>b.id===ui.gBarco)?.nome):'Todos os barcos'}</span></div>
@@ -900,17 +949,17 @@ async function gResumo(){
   </section>
   <section class="panel">
     <h2>Vendas e comissões por vendedor</h2>
-    <div class="tw"><table>
+    <div class="tw"><table class="stack c3">
       <thead><tr><th>Vendedor</th><th class="n">Vendas (nº)</th><th class="n">Pax (pessoas)</th><th class="n">Bruto (R$)</th><th class="n">Comissão (R$)</th><th class="n">Líquido (R$)</th></tr></thead>
-      <tbody>${pgV.items.map(v=>`<tr><td>${esc(v.nome)} <span class="sub">#${esc(v.cod)}</span></td><td class="n">${v.vendas}</td><td class="n">${v.pax}</td><td class="n">${money(v.bruto)}</td><td class="n">${money(v.com)}</td><td class="n">${money(v.liq)}</td></tr>`).join('')||'<tr><td colspan="6" class="sub">Sem vendas pagas.</td></tr>'}</tbody>
-      ${d.porVend.length?`<tfoot><tr><td>Total</td><td class="n">${t.vendas}</td><td class="n">${t.pax}</td><td class="n">${money(t.bruto)}</td><td class="n">${money(t.com)}</td><td class="n">${money(t.liq)}</td></tr></tfoot>`:''}
+      <tbody>${pgV.items.map(v=>`<tr><td class="first">${esc(v.nome)} <span class="sub">#${esc(v.cod)}</span></td><td class="n" data-label="Vendas (nº)">${v.vendas}</td><td class="n" data-label="Pax (pessoas)">${v.pax}</td><td class="n" data-label="Bruto (R$)">${money(v.bruto)}</td><td class="n" data-label="Comissão (R$)">${money(v.com)}</td><td class="n" data-label="Líquido (R$)">${money(v.liq)}</td></tr>`).join('')||'<tr><td colspan="6" class="sub">Sem vendas pagas.</td></tr>'}</tbody>
+      ${d.porVend.length?`<tfoot><tr><td class="first">Total do dia</td><td class="n" data-label="Vendas (nº)">${t.vendas}</td><td class="n" data-label="Pax (pessoas)">${t.pax}</td><td class="n" data-label="Bruto (R$)">${money(t.bruto)}</td><td class="n" data-label="Comissão (R$)">${money(t.com)}</td><td class="n" data-label="Líquido (R$)">${money(t.liq)}</td></tr></tfoot>`:''}
     </table></div>${pager(pgV)}
   </section>
   <section class="panel">
     <h2>Por saída</h2>
-    <div class="tw"><table>
+    <div class="tw"><table class="stack c3">
       <thead><tr><th>Saída</th><th class="n">Pax / lugares</th><th class="n">Ocupação (%)</th><th class="n">Bruto (R$)</th><th class="n">Comissão (R$)</th><th class="n">Líquido (R$)</th></tr></thead>
-      <tbody>${pgS.items.map(v=>`<tr><td>${esc(v.nome)}</td><td class="n">${v.pax} / ${v.cap}</td><td class="n">${pct1(v.ocup)}</td><td class="n">${money(v.bruto)}</td><td class="n">${money(v.com)}</td><td class="n">${money(v.liq)}</td></tr>`).join('')||'<tr><td colspan="6" class="sub">Sem saídas.</td></tr>'}</tbody>
+      <tbody>${pgS.items.map(v=>`<tr><td class="first">${esc(v.nome)}</td><td class="n" data-label="Pax / lugares">${v.pax} / ${v.cap}</td><td class="n" data-label="Ocupação (%)">${pct1(v.ocup)}</td><td class="n" data-label="Bruto (R$)">${money(v.bruto)}</td><td class="n" data-label="Comissão (R$)">${money(v.com)}</td><td class="n" data-label="Líquido (R$)">${money(v.liq)}</td></tr>`).join('')||'<tr><td colspan="6" class="sub">Sem saídas.</td></tr>'}</tbody>
     </table></div>${pager(pgS)}
   </section>
   <div class="lay2">
@@ -926,7 +975,7 @@ async function gResumo(){
     ${pager(pg)}
   </section>
   </div>
-  <div class="row no-print">
+  <div class="acts no-print">
     <button class="btn pri grow" data-act="copiarFech">Copiar fechamento (WhatsApp)</button>
     ${podeImprimir?`<button class="btn ghost grow" data-act="imprimir">Imprimir / PDF</button>`:''}
   </div>`;
@@ -954,9 +1003,9 @@ async function gSaidas(){
   ${e?`<section class="panel"><h2>Saída extra</h2>
     <form id="fSaida" class="list" style="gap:10px" novalidate>
       <label class="f">Barco<select id="sBarco">${barcos.map(b=>`<option value="${b.id}">${esc(b.nome)}</option>`).join('')}</select></label>
-      <div class="row"><label class="f grow">Horário<input id="sHora" type="text" placeholder="17:30" inputmode="numeric"></label><label class="f grow">Lugares (pessoas)<input id="sCap" type="number" min="1" value="${barcos[0]?.capacidade||40}"></label></div>
+      <div class="fg"><label class="f">Horário<input id="sHora" type="text" placeholder="17:30" inputmode="numeric"></label><label class="f">Lugares (pessoas)<input id="sCap" type="number" min="1" value="${barcos[0]?.capacidade||40}"></label></div>
       <label class="f">Rótulo (opcional)<input id="sRot" type="text" placeholder="Pôr do sol, Mergulho…"></label>
-      <div class="row"><button class="btn pri grow" type="submit">Criar saída</button><button class="btn ghost" type="button" data-act="fecharEdit">Cancelar</button></div>
+      <div class="acts two"><button class="btn pri" type="submit">Criar saída</button><button class="btn ghost" type="button" data-act="fecharEdit">Cancelar</button></div>
     </form></section>`:`<button class="btn ghost block" data-act="novo" data-tipo="saida">+ Saída extra neste dia</button>`}
   <p class="note">Os horários fixos de cada barco (em Barcos) viram saídas automaticamente todo dia.</p>`;
 }
@@ -967,20 +1016,20 @@ async function gBarcos(){
     return `<section class="panel"><h2>${b.id?'Editar barco':'Novo barco'}</h2>
     <form id="fBarco" class="list" style="gap:10px" novalidate>
       <label class="f">Nome da embarcação<input id="bNome" type="text" value="${esc(b.nome)}"></label>
-      <div class="row"><label class="f grow">Inscrição Capitania<input id="bInsc" type="text" value="${esc(b.inscricao)}"></label><label class="f grow">Mestre / Comandante<input id="bMestre" type="text" value="${esc(b.mestre)}"></label></div>
+      <div class="fg"><label class="f">Inscrição Capitania<input id="bInsc" type="text" value="${esc(b.inscricao)}"></label><label class="f">Mestre<input id="bMestre" type="text" value="${esc(b.mestre)}"></label></div>
       <label class="f">Cais de embarque<input id="bCais" type="text" value="${esc(b.cais)}"></label>
       <label class="f">Lotação (pessoas)<input id="bCap" type="number" min="1" value="${b.capacidade}"></label>
-      <div class="f">Valor da passagem e comissão</div>
-      <div class="row"><label class="f grow">Preço de tabela (R$)<input id="bPreco" type="number" min="0" step="0.01" value="${b.preco}"></label><label class="f grow">Preço mínimo (R$)<input id="bPMin" type="number" min="0" step="0.01" value="${b.precoMin??b.preco}"></label></div>
+      <div class="fsec">Valor da passagem e comissão</div>
+      <div class="fg"><label class="f">Preço tabela (R$)<input id="bPreco" type="number" min="0" step="0.01" value="${b.preco}"></label><label class="f">Preço mínimo (R$)<input id="bPMin" type="number" min="0" step="0.01" value="${b.precoMin??b.preco}"></label></div>
       <p class="sub" style="margin:0">O vendedor pode dar desconto até o preço mínimo. Mínimo igual à tabela deixa o preço fixo.</p>
-      <div class="row"><label class="f grow">Tipo de comissão<select id="bCTipo"><option value="pct" ${b.comissaoTipo!=='fixo'?'selected':''}>% do valor vendido</option><option value="fixo" ${b.comissaoTipo==='fixo'?'selected':''}>R$ fixo por passagem</option></select></label><label class="f grow">Comissão (% ou R$)<input id="bCVal" type="number" min="0" step="0.01" value="${b.comissaoValor??15}"></label></div>
+      <div class="fg"><label class="f">Tipo de comissão<select id="bCTipo"><option value="pct" ${b.comissaoTipo!=='fixo'?'selected':''}>% do valor</option><option value="fixo" ${b.comissaoTipo==='fixo'?'selected':''}>R$ por passagem</option></select></label><label class="f">Comissão (% ou R$)<input id="bCVal" type="number" min="0" step="0.01" value="${b.comissaoValor??15}"></label></div>
       <label class="f">Horários fixos (separe com ;)<input id="bHor" type="text" value="${esc(b.horarios.map(h=>h[1]?`${h[0]} ${h[1]}`:h[0]).join('; '))}" placeholder="10:00; 12:00; 16:00 Pôr do sol"></label>
-      <div class="f">Regras de prazo da reserva</div>
-      <div class="row"><label class="f grow">Pagar em (min)<input id="bTP" type="number" min="3" max="120" value="${b.tempoPag}"></label><label class="f grow">Conferir Pix em (min)<input id="bTC" type="number" min="5" max="240" value="${b.tempoConf}"></label><label class="f grow">Fechar vendas antes (min)<input id="bCorte" type="number" min="0" max="240" value="${b.corteMin}"></label></div>
+      <div class="fsec">Regras de prazo da reserva</div>
+      <div class="fg"><label class="f">Pagar (min)<input id="bTP" type="number" min="3" max="120" value="${b.tempoPag}"></label><label class="f">Conferir (min)<input id="bTC" type="number" min="5" max="240" value="${b.tempoConf}"></label><label class="f">Fecha antes (min)<input id="bCorte" type="number" min="0" max="240" value="${b.corteMin}"></label></div>
       <label class="f">Chave Pix do barco<input id="bPix" type="text" value="${esc(b.pixChave)}"></label>
-      <div class="row"><label class="f grow">Nome do recebedor<input id="bPixN" type="text" value="${esc(b.pixNome)}"></label><label class="f grow">Cidade<input id="bPixC" type="text" value="${esc(b.pixCidade)}"></label></div>
+      <div class="fg"><label class="f">Nome do recebedor<input id="bPixN" type="text" value="${esc(b.pixNome)}"></label><label class="f">Cidade<input id="bPixC" type="text" value="${esc(b.pixCidade)}"></label></div>
       <label class="chk" style="border:0"><input type="checkbox" id="bAtivo" ${b.ativo?'checked':''}><span>Barco ativo para vendas</span></label>
-      <div class="row"><button class="btn pri grow" type="submit">Salvar barco</button><button class="btn ghost" type="button" data-act="fecharEdit">Cancelar</button></div>
+      <div class="acts two"><button class="btn pri" type="submit">Salvar barco</button><button class="btn ghost" type="button" data-act="fecharEdit">Cancelar</button></div>
     </form></section>`;
   }
   return `<section class="panel"><div class="list">${barcos.map(b=>`<div class="item">
@@ -1005,13 +1054,13 @@ async function gPromotores(){
     return `<section class="panel"><h2>${p.id?'Editar promotor':'Novo promotor'}</h2>
     <form id="fProm" class="list" style="gap:10px" novalidate>
       <label class="f">Nome completo<input id="pNome" type="text" value="${esc(p.nome)}"></label>
-      <div class="row"><label class="f grow">Nº do crachá<input id="pCod" type="text" value="${esc(p.codigo)}"></label><label class="f grow">WhatsApp<input id="pZap" type="tel" value="${esc(fone(p.whatsapp))}"></label></div>
-      <label class="f">Chave Pix do vendedor (para pagar a comissão)<input id="pPix" type="text" value="${esc(p.pixChave||'')}"></label>
-      <div class="row"><label class="f grow">Comissão deste vendedor<select id="pCTipo"><option value="" ${!p.comissaoTipo?'selected':''}>Usar a do barco</option><option value="pct" ${p.comissaoTipo==='pct'?'selected':''}>% do valor vendido</option><option value="fixo" ${p.comissaoTipo==='fixo'?'selected':''}>R$ fixo por passagem</option></select></label><label class="f grow">Valor (% ou R$)<input id="pCVal" type="number" min="0" step="0.01" value="${p.comissaoValor||0}"></label></div>
-      <div class="f">Pode vender para</div>
+      <div class="fg"><label class="f">Nº do crachá<input id="pCod" type="text" value="${esc(p.codigo)}"></label><label class="f">WhatsApp<input id="pZap" type="tel" value="${esc(fone(p.whatsapp))}"></label></div>
+      <label class="f">Chave Pix (para pagar a comissão)<input id="pPix" type="text" value="${esc(p.pixChave||'')}"></label>
+      <div class="fg"><label class="f">Comissão<select id="pCTipo"><option value="" ${!p.comissaoTipo?'selected':''}>Usar a do barco</option><option value="pct" ${p.comissaoTipo==='pct'?'selected':''}>% do valor</option><option value="fixo" ${p.comissaoTipo==='fixo'?'selected':''}>R$ por passagem</option></select></label><label class="f">Valor (% ou R$)<input id="pCVal" type="number" min="0" step="0.01" value="${p.comissaoValor||0}"></label></div>
+      <div class="fsec">Pode vender para</div>
       ${barcos.map(b=>`<label class="chk"><input type="checkbox" class="pBarco" value="${b.id}" ${p.barcoIds.includes(b.id)?'checked':''}><span>${esc(b.nome)}</span></label>`).join('')}
       <label class="chk" style="border:0"><input type="checkbox" id="pAtivo" ${p.ativo?'checked':''}><span>Credencial ativa</span></label>
-      <div class="row"><button class="btn pri grow" type="submit">Salvar promotor</button><button class="btn ghost" type="button" data-act="fecharEdit">Cancelar</button></div>
+      <div class="acts two"><button class="btn pri" type="submit">Salvar promotor</button><button class="btn ghost" type="button" data-act="fecharEdit">Cancelar</button></div>
     </form></section>`;
   }
   const pg=paginate('proms',proms,6);
@@ -1075,6 +1124,8 @@ document.addEventListener('click',async e=>{
   const act=a.dataset.act, c=a.dataset.c;
   switch(act){
     case 'atualizar': return atualizar();
+    case 'zapEnviar': return abrirWhatsApp(ui.zap,ui.msg);
+    case 'zapGuardar': return abrirWhatsApp(ui.zapVoucher?.num,ui.zapVoucher?.txt||'');
     case 'menu': return menu(true);
     case 'menuFechar': return menu(false);
     case 'camera': return ui.camOn?(fecharCamera(),render()):abrirCamera();
@@ -1109,11 +1160,9 @@ document.addEventListener('click',async e=>{
       return render();
     case 'cancelar': await api.cancelar(c); toast(`${c} cancelada · lugares liberados`); return render();
     case 'cracha': return go('cracha');
-    case 'caisSaida': ui.caisSaida=a.dataset.id; ui.caisMsg=null; pages.cais=0; return render();
     case 'caisAbrir': ui.caisCodigo=c; return validarCais();
     case 'emb': await api.embarcar(c,+a.dataset.i,a.checked); ui.caisMsg.r=await api.reserva(c); return render();
     case 'embTodos': await api.embarcar(c,'all'); ui.caisMsg.r=await api.reserva(c); toast('Embarque confirmado no manifesto'); return render();
-    case 'manSaida': ui.manSaida=a.dataset.id; pages.man=0; return render();
     case 'copiarMan': {
       const s=(await api.saidas(hoje())).find(x=>x.id===ui.manSaida); const l=await linhasManifesto(s.id);
       const txt=`MANIFESTO DE PASSAGEIROS\nEmbarcação: ${s.barco.nome} · Inscrição ${s.barco.inscricao}\nMestre: ${s.barco.mestre}\nSaída: ${dataBR(s.data)} ${s.hora} · ${s.barco.cais}\n\n`+
@@ -1135,6 +1184,8 @@ document.addEventListener('click',async e=>{
 document.addEventListener('change',async e=>{
   const a=e.target.closest('[data-act]'); if(!a) return;
   if(a.dataset.act==='prom'){ ui.promotorId=a.value; ui.barcoId=null; ui.saidaId=null; ui.ultima=null; render(); }
+  if(a.dataset.act==='caisSaida'){ ui.caisSaida=a.value; ui.caisMsg=null; pages.cais=0; render(); }
+  if(a.dataset.act==='manSaida'){ ui.manSaida=a.value; pages.man=0; render(); }
   if(a.dataset.act==='gBarco'){ ui.gBarco=a.value; render(); }
   if(a.dataset.act==='gData'){ ui.gData=a.value||hoje(); if(ui.gData>=hoje()){ gerarSaidas(load(),ui.gData); persist(); } render(); }
 });
@@ -1142,8 +1193,7 @@ document.addEventListener('input',e=>{
   if(e.target.id==='zap'){
     ui.zap=e.target.value.replace(/\D/g,'').slice(0,11); e.target.value=fone(ui.zap);
     const b=$('#zapBtn'); const ok=ui.zap.length>=10;
-    b.href=ok?`https://wa.me/55${ui.zap}?text=${encodeURIComponent(ui.msg)}`:'#';
-    b.style.opacity=ok?'':'.45'; b.style.pointerEvents=ok?'':'none'; ok?b.removeAttribute('aria-disabled'):b.setAttribute('aria-disabled','true');
+    b.disabled=!ok;
   }
   if(e.target.id==='preco') atualizaPreco(e.target.value);
   if(e.target.id==='tz'){ const d=e.target.value.replace(/\D/g,'').slice(0,11); e.target.value=fone(d); }
